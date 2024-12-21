@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const logoutBtn = document.getElementById('logout-btn');
+    const darkModeToggle = document.getElementById('dark-mode');
+    const body = document.body;
 
+    // Fetch user profile data
     try {
         const response = await fetch('/api/profile');
         if (response.ok) {
@@ -12,6 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('profile-address').textContent = userData.address;
             document.getElementById('profile-role').textContent = userData.role;
         } else {
+            // Redirect to login page if the profile data cannot be fetched
             window.location.href = '/index.html';
         }
     } catch (error) {
@@ -19,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert('Failed to load profile. Please try again.');
     }
 
+    // Logout functionality
     logoutBtn.addEventListener('click', async () => {
         try {
             const response = await fetch('/api/logout', { method: 'POST' });
@@ -28,6 +33,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error('Error:', error);
             alert('Logout failed. Please try again.');
+        }
+    });
+
+    // Check if dark mode is already enabled in localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        darkModeToggle.checked = true;
+    }
+
+    // Dark mode toggle functionality
+    darkModeToggle.addEventListener('change', () => {
+        if (darkModeToggle.checked) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled'); // Save preference to localStorage
+        } else {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'disabled'); // Save preference to localStorage
         }
     });
 });

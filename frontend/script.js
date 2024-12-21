@@ -6,9 +6,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const showLoginLink = document.getElementById('show-login');
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
+    const body = document.body;
 
+    // Initialize dark mode based on localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        darkModeToggle.checked = true;
+    }
+
+    // Dark mode toggle functionality
     darkModeToggle.addEventListener('change', () => {
-        document.body.classList.toggle('dark-mode');
+        if (darkModeToggle.checked) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'disabled');
+        }
     });
 
     showRegisterLink.addEventListener('click', (e) => {

@@ -1,0 +1,201 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #e1e6ed; /* Light background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container styling */
+.container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 5%;
+    margin: 3rem 0rem 3rem 0rem;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Profile photo (shadow of the person) */
+.profile-photo {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#profile-img {
+    width: 150px; /* Set image width */
+    height: 150px; /* Set image height */
+    object-fit: cover; /* Ensures the image covers the area */
+    border-radius: 50%; /* Circular image */
+    border: 5px solid #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for the profile image */
+#profile-img:hover {
+    transform: scale(1.05);
+}
+
+/* Heading styling */
+h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Profile info styling */
+#profile-info {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+#profile-info p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+#profile-info span {
+    font-weight: bold;
+    color: #555;
+}
+
+/* Styling for the logout button */
+#logout-btn {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for the logout button */
+#logout-btn:hover {
+    background-color: #e04343;
+    transform: scale(1.05);
+}
+
+/* Media Query for responsiveness */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #profile-info p {
+        font-size: 1rem;
+    }
+
+    #logout-btn {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+}
+
+/* Dark Theme Mode Animation Designe Start */
+.theme {
+    --bg-color: #fff;
+    --main-color: #323232;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: var(--bg-color);
+    border-radius: 100%;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+}
+
+.input {
+    cursor: pointer;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    opacity: 0;
+}
+
+.icon {
+    position: absolute;
+    top: calc(50% -13px);
+    left: calc(50% -13px);
+    width: 26px;
+    height: 26px;
+}
+
+.icon.icon-moon {
+    fill: var(--main-color);
+}
+
+.icon.icon-sun {
+    stroke: var(--main-color);
+    display: none;
+}
+
+.input:checked~.icon.icon-sun {
+    display: block;
+}
+
+.input:checked~.icon.icon-moon {
+    display: none;
+}
+
+.theme:active {
+    box-shadow: 0px 0px var(--main-color);
+    transform: translate(3px, 3px);
+}
+/* Dark Theme Mode Animation Designe End */
+/* Dark Theme Mode Button */
+.mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+.mode-toggle label {
+    margin-right: 0.5rem;
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark-mode .container {
+    background-color: #444;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background-color: #3e3e3e;
+    color: #fff;
+    border-color: #7e7d7d;
+}
