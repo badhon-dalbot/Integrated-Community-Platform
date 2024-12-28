@@ -4,53 +4,57 @@ env.config();
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
 const db = require("./database.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(bodyParser.json());
 
 //Sign up
-// app.post("/signup", async (req, res) => {
-//   const { full_name, username, email, password, phone_number, address, role } =
-//     req.body;
+app.post("/signup", async (req, res) => {
+  console.log(req.body);
+  const { full_name, username, email, password, phone_number, address, role } =
+    req.body;
 
-//   if (!username || !password || !full_name) {
-//     return res.status(400).send("Required");
-//   }
+  if (!username || !password || !full_name) {
+    return res.status(400).send("Required");
+  }
 
-//   try {
-//     const hashedPassword = await bcrypt.hash(password, 10);
-//     const sql = `INSERT INTO users(full_name, username, email, password, phone_number, address, role) VALUES(?, ?, ?, ?, ?, ?, ?)`;
-//     db.query(
-//       sql,
-//       [
-//         full_name,
-//         username,
-//         email,
-//         hashedPassword,
-//         phone_number,
-//         address,
-//         role || "member",
-//       ],
-//       (err, result) => {
-//         if (err) {
-//           if (err.code == "ER_DUP_ENTRY") {
-//             return res.status(409).send("username already exists.");
-//           }
-//           return res.status(500).send("Database error.");
-//         }
-//         res.status(201).send("User registered succesfully.");
-//       }
-//     );
-//   } catch (error) {
-//     res.status(500).send("server error.");
-//   }
-// });
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const sql = `INSERT INTO users(full_name, username, email, password, phone_number, address, role) VALUES(?, ?, ?, ?, ?, ?, ?)`;
+    db.query(
+      sql,
+      [
+        full_name,
+        username,
+        email,
+        hashedPassword,
+        phone_number,
+        address,
+        role || "member",
+      ],
+      (err, result) => {
+        if (err) {
+          if (err.code == "ER_DUP_ENTRY") {
+            return res.status(409).send("username already exists.");
+          }
+          return res.status(500).send("Database error.");
+        }
+        res.status(201).send("User registered succesfully.");
+      }
+    );
+  } catch (error) {
+    res.status(500).send("server error.");
+  }
+});
 
 // login
 app.post("/login", (req, res) => {
+  console.log(req.body);
   const { username, password } = req.body;
 
   if (!username || !password) {
