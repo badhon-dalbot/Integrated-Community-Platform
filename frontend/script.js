@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dark mode toggle functionality
     darkModeToggle.addEventListener('change', () => {
         if (darkModeToggle.checked) {
-            body.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
             body.classList.remove('dark-mode');
             localStorage.setItem('darkMode', 'disabled');
+        } else {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
         }
     });
 
@@ -52,8 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 const data = await response.json();
                 alert('Login successful!');
-                window.location.href = '/profile.html';
+                window.location.href = '/profile.html';  // Redirect to profile page after successful login
             } else {
+                // Display login failed message (this will trigger when the response is not OK)
                 alert('Login failed. Please check your credentials.');
             }
         } catch (error) {
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        // Collecting form data
         const userData = {
             name: document.getElementById('reg-name').value,
             username: document.getElementById('reg-username').value,
@@ -74,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
             password: document.getElementById('reg-password').value
         };
 
+        console.log(userData);
+        
         try {
             const response = await fetch('/api/register', {
                 method: 'POST',
@@ -83,14 +87,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 alert('Registration successful! Please login.');
+                // Hide registration section and show login section
                 registerSection.style.display = 'none';
                 loginSection.style.display = 'block';
             } else {
-                alert('Registration failed. Please try again.');
+                const errorResponse = await response.json(); // Read the error message from response
+                alert(errorResponse.message || 'Registration failed. Please try again.');
             }
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred. Please try again.');
         }
     });
+
 });

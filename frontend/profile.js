@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Dark mode toggle functionality
     darkModeToggle.addEventListener('change', () => {
         if (darkModeToggle.checked) {
-            body.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled'); // Save preference to localStorage
-        } else {
             body.classList.remove('dark-mode');
             localStorage.setItem('darkMode', 'disabled'); // Save preference to localStorage
+        } else {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled'); // Save preference to localStorage
         }
     });
 });
