@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard - Community Platform</title>
+    <link rel="stylesheet" href="css/user-dashboard.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <div class="logo">Community Platform</div>
+        <div class="user-actions">
+          <span id="user-name">John Doe</span>
+          <button class="btn" id="logout-btn">Logout</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <h1>User Dashboard</h1>
+      <div class="dashboard-grid">
+        <div class="user-profile">
+          <div class="card profile-info">
+            <h2>Profile</h2>
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Profile Picture"
+              class="profile-pic"
+            />
+            <h3 id="profile-name">John Doe</h3>
+            <p id="profile-email">john.doe@example.com</p>
+            <p>Member since: <span id="member-since">January 1, 2023</span></p>
+            <button class="btn" id="edit-profile-btn">Edit Profile</button>
+          </div>
+        </div>
+        <div class="dashboard-content">
+          <div class="card">
+            <h2>Activity Summary</h2>
+            <div class="activity-grid">
+              <div class="activity-item">
+                <span class="activity-icon">📦</span>
+                <div>
+                  <h4>Lost & Found</h4>
+                  <p id="lost-found-count">2 items</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon">🛒</span>
+                <div>
+                  <h4>Marketplace</h4>
+                  <p id="marketplace-count">3 listings</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon">🚨</span>
+                <div>
+                  <h4>Emergency Alerts</h4>
+                  <p id="alerts-count">1 active</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon">📅</span>
+                <div>
+                  <h4>Events</h4>
+                  <p id="events-count">4 attending</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Quick Access</h2>
+            <div class="quick-access-grid">
+              <a href="#" class="quick-access-item" id="lost-found-link">
+                <h3>Lost & Found</h3>
+                <p>Report or find items</p>
+              </a>
+              <a href="#" class="quick-access-item" id="marketplace-link">
+                <h3>Marketplace</h3>
+                <p>Buy and sell items</p>
+              </a>
+              <a href="#" class="quick-access-item" id="alerts-link">
+                <h3>Emergency Alerts</h3>
+                <p>View current alerts</p>
+              </a>
+              <a href="#" class="quick-access-item" id="events-link">
+                <h3>Events</h3>
+                <p>Discover local events</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="scripts/user-dashboard.js"></script>
+  </body>
+</html>
