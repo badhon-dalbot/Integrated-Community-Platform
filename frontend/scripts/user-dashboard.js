@@ -1,21 +1,52 @@
 // Sample user data (replace with actual data from your backend)
-const userData = {
-  name: "John Doe",
-  email: "john.doe@example.com",
-  memberSince: "January 1, 2023",
-  activities: {
-    lostAndFound: 2,
-    marketplace: 3,
-    alerts: 1,
-    events: 4,
-  },
+// const userData = {
+//   name: "John Doe",
+//   email: "john.doe@example.com",
+//   memberSince: "January 1, 2023",
+//   activities: {
+//     lostAndFound: 2,
+//     marketplace: 3,
+//     alerts: 1,
+//     events: 4,
+//   },
+// };
+
+const fetchUserProfile = async () => {
+  console.log(localStorage);
+  // const username = localStorage.getItem("username");
+  // // if (!token) {
+  // //   console.log("user is not logged in");
+  // //   return;
+  // // }
+  // if (!username) {
+  //   console.log("User not found");
+  //   return;
+  // }
+
+  const response = await fetch(`http://localhost:3000/user/profile`, {
+    method: "GET",
+    // headers: { Authorization: `Bearer ${token}` },
+    headers: { "Content-Type": "/application/json" },
+  });
+  if (response.ok) {
+    const userData = await response.json();
+    console.log(userData);
+    document.getElementById("user-name").textContent = userData.username;
+    document.getElementById("profile-name").textContent = userData.fullName;
+  } else {
+    console.error("Failed to fetch user profile");
+    // localStorage.removeItem("token");
+    // window.location.href = "http:127.0.0.1:5500/frontend/index.html";
+  }
 };
 
+fetchUserProfile();
+
 // Update user profile information
-document.getElementById("user-name").textContent = userData.name;
-document.getElementById("profile-name").textContent = userData.name;
-document.getElementById("profile-email").textContent = userData.email;
-document.getElementById("member-since").textContent = userData.memberSince;
+// document.getElementById("user-name").textContent = userData.name;
+// document.getElementById("profile-name").textContent = userData.name;
+// document.getElementById("profile-email").textContent = userData.email;
+// document.getElementById("member-since").textContent = userData.memberSince;
 
 // Update activity counts
 document.getElementById(

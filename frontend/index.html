@@ -1,76 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integrated Community</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Integrated Community</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-  <!-- mode toggle section -->
-  <div class="mode-toggle">
-    <p>Theme</p>
-    <label class="theme">
-      <input class="input" checked="checked" type="checkbox" id="dark-mode">
-      <svg width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
-        stroke="currentColor" height="24" fill="none" class="icon icon-sun">
-        <circle r="5" cy="12" cx="12"></circle>
-        <line y2="3" y1="1" x2="12" x1="12"></line>
-        <line y2="23" y1="21" x2="12" x1="12"></line>
-        <line y2="5.64" y1="4.22" x2="5.64" x1="4.22"></line>
-        <line y2="19.78" y1="18.36" x2="19.78" x1="18.36"></line>
-        <line y2="12" y1="12" x2="3" x1="1"></line>
-        <line y2="12" y1="12" x2="23" x1="21"></line>
-        <line y2="18.36" y1="19.78" x2="5.64" x1="4.22"></line>
-        <line y2="4.22" y1="5.64" x2="19.78" x1="18.36"></line>
-      </svg>
-      <svg viewBox="0 0 24 24" class="icon icon-moon">
-        <path
-          d="m12.3 4.9c.4-.2.6-.7.5-1.1s-.6-.8-1.1-.8c-4.9.1-8.7 4.1-8.7 9 0 5 4 9 9 9 3.8 0 7.1-2.4 8.4-5.9.2-.4 0-.9-.4-1.2s-.9-.2-1.2.1c-1 .9-2.3 1.4-3.7 1.4-3.1 0-5.7-2.5-5.7-5.7 0-1.9 1.1-3.8 2.9-4.8zm2.8 12.5c.5 0 1 0 1.4-.1-1.2 1.1-2.8 1.7-4.5 1.7-3.9 0-7-3.1-7-7 0-2.5 1.4-4.8 3.5-6-.7 1.1-1 2.4-1 3.8-.1 4.2 3.4 7.6 7.6 7.6z">
-        </path>
-      </svg>
-    </label>
-  </div>
-  <!-- mode toggle section end -->
-
-  <!-- navigation section -->
-  <div class="container">
-    <h1>Integrated<br> Community</h1>
-    <div id="login-section">
-      <h2>Login</h2>
-      <form id="login-form">
-        <input type="text" id="login-username" placeholder="Username" required>
-        <input type="password" id="login-password" placeholder="Password" required>
-        <button type="submit">Login</button>
-      </form>
-      <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+  <body>
+    <!-- mode toggle section -->
+    <div class="mode-toggle">
+      <p>Theme</p>
+      <label class="theme">
+        <input class="input" checked="checked" type="checkbox" id="dark-mode" />
+        <svg
+          width="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          stroke="currentColor"
+          height="24"
+          fill="none"
+          class="icon icon-sun"
+        >
+          <circle r="5" cy="12" cx="12"></circle>
+          <line y2="3" y1="1" x2="12" x1="12"></line>
+          <line y2="23" y1="21" x2="12" x1="12"></line>
+          <line y2="5.64" y1="4.22" x2="5.64" x1="4.22"></line>
+          <line y2="19.78" y1="18.36" x2="19.78" x1="18.36"></line>
+          <line y2="12" y1="12" x2="3" x1="1"></line>
+          <line y2="12" y1="12" x2="23" x1="21"></line>
+          <line y2="18.36" y1="19.78" x2="5.64" x1="4.22"></line>
+          <line y2="4.22" y1="5.64" x2="19.78" x1="18.36"></line>
+        </svg>
+        <svg viewBox="0 0 24 24" class="icon icon-moon">
+          <path
+            d="m12.3 4.9c.4-.2.6-.7.5-1.1s-.6-.8-1.1-.8c-4.9.1-8.7 4.1-8.7 9 0 5 4 9 9 9 3.8 0 7.1-2.4 8.4-5.9.2-.4 0-.9-.4-1.2s-.9-.2-1.2.1c-1 .9-2.3 1.4-3.7 1.4-3.1 0-5.7-2.5-5.7-5.7 0-1.9 1.1-3.8 2.9-4.8zm2.8 12.5c.5 0 1 0 1.4-.1-1.2 1.1-2.8 1.7-4.5 1.7-3.9 0-7-3.1-7-7 0-2.5 1.4-4.8 3.5-6-.7 1.1-1 2.4-1 3.8-.1 4.2 3.4 7.6 7.6 7.6z"
+          ></path>
+        </svg>
+      </label>
     </div>
+    <!-- mode toggle section end -->
 
-    <div id="register-section" style="display: none;">
-      <h2>Register</h2>
-      <form id="register-form">
-        <input type="text" id="reg-name" placeholder="Full Name" required>
-        <input type="text" id="reg-username" placeholder="Username" required>
-        <input type="tel" id="reg-phone" placeholder="Phone Number" required>
-        <input type="email" id="reg-email" placeholder="Email" required>
-        <textarea id="reg-address" placeholder="Address" required></textarea>
-        <select id="reg-role" required>
-          <option value="">Select Role</option>
-          <option value="member">Member</option>
-          <option value="admin">Admin</option>
-        </select>
-        <input type="password" id="reg-password" placeholder="Password" required>
-        <button type="submit">Register</button>
-      </form>
-      <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+    <!-- navigation section -->
+    <div class="container">
+      <h1>
+        Integrated<br />
+        Community
+      </h1>
+      <div id="login-section">
+        <h2>Login</h2>
+        <form id="login-form">
+          <input
+            type="text"
+            id="login-username"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            id="login-password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Login</button>
+        </form>
+        <p>
+          Don't have an account? <a href="#" id="show-register">Register</a>
+        </p>
+      </div>
+
+      <div id="register-section" style="display: none">
+        <h2>Register</h2>
+        <form id="register-form">
+          <input type="text" id="reg-name" placeholder="Full Name" required />
+          <input
+            type="text"
+            id="reg-username"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="tel"
+            id="reg-phone"
+            placeholder="Phone Number"
+            required
+          />
+          <input type="email" id="reg-email" placeholder="Email" required />
+          <textarea id="reg-address" placeholder="Address" required></textarea>
+          <select id="reg-role" required>
+            <option value="">Select Role</option>
+            <option value="member">Member</option>
+            <option value="admin">Admin</option>
+          </select>
+          <input
+            type="password"
+            id="reg-password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+      </div>
     </div>
-  </div>
-  <!-- navigation section end -->
+    <!-- navigation section end -->
 
-  <script src ="utilites.js"></script>
-  <script src="script.js"></script>
-</body>
-
+    <script src="scripts/utilites.js"></script>
+    <script src="scripts/script.js"></script>
+  </body>
 </html>
