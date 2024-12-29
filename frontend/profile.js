@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const logoutBtn = document.getElementById('logout-btn');
-    const darkModeToggle = document.getElementById('dark-mode');
     const body = document.body;
 
     // Fetch user profile data
@@ -36,20 +35,4 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // Check if dark mode is already enabled in localStorage
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        body.classList.add('dark-mode');
-        darkModeToggle.checked = true;
-    }
-
-    // Dark mode toggle functionality
-    darkModeToggle.addEventListener('change', () => {
-        if (darkModeToggle.checked) {
-            body.classList.remove('dark-mode');
-            localStorage.setItem('darkMode', 'disabled'); // Save preference to localStorage
-        } else {
-            body.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled'); // Save preference to localStorage
-        }
-    });
 });

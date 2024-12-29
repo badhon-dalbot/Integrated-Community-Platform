@@ -1,29 +1,13 @@
 const express = require('express');
 const mysql = require('mysql');
 const path = require('path'); // Add path module
+const db = require('./database'); // Import the database connection
 const app = express();
 const port = 3000;
 
 // Middleware to parse incoming requests
 app.use(express.json());  // To parse JSON bodies
 app.use(express.urlencoded({ extended: true }));  // To parse URL-encoded bodies
-
-// Database connection
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'integrated_community_platform' // Corrected database name
-});
-
-// Connect to MySQL database
-db.connect((err) => {
-  if (err) {
-    console.error('Failed to connect to MySQL:', err);
-    return;
-  }
-  console.log('Connected to MySQL');
-});
 
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, '../frontend'))); // This serves files from the frontend folder
