@@ -70,7 +70,7 @@ document.getElementById("logout-btn").addEventListener("click", function () {
 document
   .getElementById("edit-profile-btn")
   .addEventListener("click", function () {
-    alert("Edit profile functionality to be implemented");
+    window.location.href = "profile.html";
   });
 
 const quickAccessLinks = [
