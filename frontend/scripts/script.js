@@ -51,12 +51,13 @@ registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   // Collecting form data
   const userData = {
-    full_name: document.getElementById("reg-name").value,
+    name: document.getElementById("reg-name").value,
     username: document.getElementById("reg-username").value,
     phone: document.getElementById("reg-phone").value,
     email: document.getElementById("reg-email").value,
-    address: document.getElementById("reg-address").value,
-    role: document.getElementById("reg-role").value,
+    city: document.getElementById("city").value,
+    district: document.getElementById("district").value,
+    division: document.getElementById("division").value,
     password: document.getElementById("reg-password").value,
   };
 
