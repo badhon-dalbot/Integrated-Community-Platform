@@ -75,7 +75,7 @@ app.post("/login", (req, res) => {
 
 // Registration API route
 app.post("/register", (req, res) => {
-  const { full_name, username, email, password, phone, address, role } =
+  const { full_name, username, email, password, phone_number, address, role } =
     req.body;
 
   // Validation (Optional)
@@ -84,7 +84,7 @@ app.post("/register", (req, res) => {
     !username ||
     !email ||
     !password ||
-    !phone ||
+    !phone_number ||
     !address ||
     !role
   ) {
@@ -112,7 +112,7 @@ app.post("/register", (req, res) => {
       "INSERT INTO users (full_name, username,  email, password, phone_number, address, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
     db.query(
       query,
-      [full_name, username, email, password, phone, address, role],
+      [full_name, username, email, password, phone_number, address, role],
       (err, results) => {
         if (err) {
           console.error("Error during registration:", err);
