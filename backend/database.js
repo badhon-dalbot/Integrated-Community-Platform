@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "", // If root user has no password, keep this empty
   database: "integrated_community_platform",
 });
 
