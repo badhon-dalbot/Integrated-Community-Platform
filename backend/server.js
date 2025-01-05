@@ -10,12 +10,11 @@ const app = express();
 const port = 5000;
 const secretKey = "2c3f35b8a3988bed11689e3fc1aabe08064abd0d43";
 const jwt = require("jsonwebtoken");
+const lostAndFoundRoute = require("./routes/lostAndFoundRout");
 
-const jwt = require("jsonwebtoken");
 // Middleware to parse incoming requests
 app.use(express.json()); // To parse JSON bodies
 app.use(cors());
-app.use(cookie());
 app.use(cookies());
 app.use(express.urlencoded({ extended: true })); // To parse URL-encoded bodies
 
@@ -31,11 +30,11 @@ app.get("/", (req, res) => {
 
 // Login API route
 app.post("/login", (req, res) => {
-  const token = req.cookies.loggedInUser;
+  // const token = req.cookies.loggedInUser;
 
-  if (token) {
-    return res.json({ status: "Success" });
-  }
+  // if (token) {
+  //   return res.json({ status: "Success" });
+  // }
 
   const { username, password } = req.body;
 
@@ -55,16 +54,16 @@ app.post("/login", (req, res) => {
     }
 
     const user = results[0];
-    res.json({
-      message: "login successful",
-      username: user.username,
-    });
+    // res.json({
+    //   message: "login successful",
+    //   username: user.username,
+    // });
     //token
     const token = jwt.sign(user, secretKey, { expiresIn: "1d" });
     // res.json({ token });
 
     //set cookie
-    res.cookie("integrated-community-platform", token, {
+    res.cookie("integratedCommunityPlatform", token, {
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
       httpOnly: true,
       signed: true,
@@ -77,13 +76,13 @@ app.post("/login", (req, res) => {
       token: token,
     });
 
-    res.locals.loggedInUser = user;
+    // res.locals.loggedInUser = user;
 
-    if (results.length > 0) {
-      return res.status(200).json({ message: "Login successful" });
-    } else {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
+    // if (results.length > 0) {
+    //   return res.status(200).json({ message: "Login successful" });
+    // } else {
+    //   return res.status(401).json({ error: "Invalid credentials" });
+    // }
   });
 });
 
@@ -91,16 +90,7 @@ app.post("/login", (req, res) => {
 app.post("/register", (req, res) => {
   const { username, name, email, password, phonenumber, city, district, division } =
     req.body;
-  const {
-    username,
-    name,
-    email,
-    password,
-    phonenumber,
-    city,
-    district,
-    division,
-  } = req.body;
+ 
 
   // Validation (Optional)
   if (
@@ -154,6 +144,10 @@ app.post("/register", (req, res) => {
 
 //profile
 app.use("/user", userRoute);
+
+//lost and found
+
+app.use("/lost-and-found", lostAndFoundRoute);
 // Update user Profile
 // app.put("/user/:id", (req, res) => {
 //   const userId = req.params.id;

@@ -1,27 +1,29 @@
 const express = require("express");
 const checkLogin = require("../middleware/middleware");
 
+const db = require("../database");
+
 const lostAndFoundRoute = express.Router();
 
-lostAndFoundRoute.get("/lost-item", checkLogin, (req, res) => {
-  const { username } = req.user;
+lostAndFoundRoute.get("/lost-item", (req, res) => {
+  // const { username } = req.user;
   // console.log(userId);
-  console.log(username);
-  if (!username) return res.status(400).json({ error: "user id required" });
+  // console.log(username);
+  // if (!username) return res.status(400).json({ error: "user id required" });
 
   const query = `SELECT * FROM lost_item`;
   db.query(query, (err, results) => {
     if (err || results.length === 0) {
       res.status(500).json({ error: "Failed to fetch user data" });
     }
-    res.status(200).json(results[0]);
+    console.log(results);
+    res.status(200).json(results);
   });
 });
 
 lostAndFoundRoute.get(
-  "/found-item",
-  /*checkLogin,*/ (req, res) => {
-    //   const { username } = req.user;
+  "/found-item", (req, res) => {
+//     //   const { username } = req.user;
 
     const query = `SELECT * FROM found_item`;
     db.query(query, (err, results) => {
@@ -29,12 +31,13 @@ lostAndFoundRoute.get(
         res.status(500).send("Error fetching data from database");
         return;
       }
-      res.status(200).json(results[0]);
+      console.log(results);
+      res.status(200).json(results);
     });
   }
 );
 
-lostAndFoundRoute.post("/lost-item", checkLogin, (req, res) => {
+lostAndFoundRoute.post("lost-item", (req, res) => {
   const {
     user_id,
     item_name,
