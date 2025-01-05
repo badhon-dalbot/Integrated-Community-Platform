@@ -23,7 +23,7 @@ loginForm.addEventListener("submit", async (e) => {
   const password = document.getElementById("login-password").value;
 
   try {
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch("http://localhost:5000/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -51,9 +51,9 @@ registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   // Collecting form data
   const userData = {
-    name: document.getElementById("reg-name").value,
     username: document.getElementById("reg-username").value,
-    phone: document.getElementById("reg-phone").value,
+    name: document.getElementById("reg-name").value,
+    phonenumber: document.getElementById("reg-phone").value,
     email: document.getElementById("reg-email").value,
     city: document.getElementById("city").value,
     district: document.getElementById("district").value,

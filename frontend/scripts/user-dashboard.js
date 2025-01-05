@@ -1,7 +1,7 @@
 const fetchUserProfile = async () => {
   console.log(localStorage);
 
-  const response = await fetch(`http://localhost:3000/user/profile`, {
+  const response = await fetch(`http://localhost:5000/user/profile`, {
     method: "GET",
     // headers: { Authorization: `Bearer ${token}` },
     headers: { "Content-Type": "application/json" },
