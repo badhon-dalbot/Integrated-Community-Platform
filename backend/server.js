@@ -9,11 +9,12 @@ const userRoute = require("./routes/userRoutes");
 const app = express();
 const port = 3000;
 const secretKey = "2c3f35b8a3988bed11689e3fc1aabe08064abd0d43";
+const jwt = require("jsonwebtoken");
 
 // Middleware to parse incoming requests
 app.use(express.json()); // To parse JSON bodies
 app.use(cors());
-app.use(cookie);
+app.use(cookie());
 app.use(express.urlencoded({ extended: true })); // To parse URL-encoded bodies
 
 // Middleware to serve static files
@@ -76,7 +77,7 @@ app.post("/login", (req, res) => {
 
 // Registration API route
 app.post("/register", (req, res) => {
-  const { username, name, email, password, phone, city, district, division } =
+  const { username, name, email, password, phonenumber, city, district, division } =
     req.body;
 
   // Validation (Optional)
