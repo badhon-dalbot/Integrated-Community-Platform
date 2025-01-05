@@ -1,19 +1,20 @@
 const express = require("express");
 const mysql = require("mysql");
-const cookie = require("cookie-parser");
+const cookies = require("cookie-parser");
 
 const path = require("path"); // Add path module
 const cors = require("cors");
 const db = require("./database"); // Import the database connection
 const userRoute = require("./routes/userRoutes");
 const app = express();
-const port = 3000;
+const port = 5000;
 const secretKey = "2c3f35b8a3988bed11689e3fc1aabe08064abd0d43";
 
+const jwt = require("jsonwebtoken");
 // Middleware to parse incoming requests
 app.use(express.json()); // To parse JSON bodies
 app.use(cors());
-app.use(cookie);
+app.use(cookies());
 app.use(express.urlencoded({ extended: true })); // To parse URL-encoded bodies
 
 // Middleware to serve static files
@@ -22,15 +23,19 @@ app.use(express.static(path.join(__dirname, "../frontend"))); // This serves fil
 
 // Routes
 
-app.use("user/", userRoute);
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html")); // Serve the index.html file
 });
 
 // Login API route
 app.post("/login", (req, res) => {
+  const token = req.cookies.loggedInUser;
+
+  if (token) {
+    return res.json({ status: "Success" });
+  }
+
   const { username, password } = req.body;
-  // const token = req.cookies.loggedInUser;
 
   if (!username || !password) {
     return res
@@ -57,14 +62,20 @@ app.post("/login", (req, res) => {
     // res.json({ token });
 
     //set cookie
-    res.cookie("integrated-community-service", token, {
+    res.cookie("integrated-community-platform", token, {
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
       httpOnly: true,
       signed: true,
     });
-    return res.redirect("/");
+    // return res.redirect("/");
 
-    // res.locals.loggedInUser = user;
+    res.json({
+      message: "login successful",
+      username: user.username,
+      token: token,
+    });
+
+    res.locals.loggedInUser = user;
 
     if (results.length > 0) {
       return res.status(200).json({ message: "Login successful" });
@@ -76,8 +87,16 @@ app.post("/login", (req, res) => {
 
 // Registration API route
 app.post("/register", (req, res) => {
-  const { username, name, email, password, phone, city, district, division } =
-    req.body;
+  const {
+    username,
+    name,
+    email,
+    password,
+    phonenumber,
+    city,
+    district,
+    division,
+  } = req.body;
 
   // Validation (Optional)
   if (
@@ -130,7 +149,7 @@ app.post("/register", (req, res) => {
 });
 
 //profile
-
+app.use("/user", userRoute);
 // Update user Profile
 // app.put("/user/:id", (req, res) => {
 //   const userId = req.params.id;
