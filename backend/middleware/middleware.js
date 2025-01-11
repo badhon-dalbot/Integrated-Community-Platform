@@ -3,6 +3,7 @@ const secretKey = "2c3f35b8a3988bed11689e3fc1aabe08064abd0d43";
 const cookieParser = require("cookie-parser");
 
 const checkLogin = (req, res, next) => {
+<<<<<<< HEAD
   console.log("Cookies: ", req.cookies); // Log all cookies to check if the token is there
   console.log("Signed Cookies: ", req.signedCookies); // Log signed cookies
 
@@ -20,6 +21,32 @@ const checkLogin = (req, res, next) => {
       console.error("JWT verification error: ", err); // Error during verification
       res.status(500).json({ err: "Authentication failure" });
     }
+=======
+  // const token = req.cookies.loggedInUser;
+  // const token = req.cookies["integrated-community-platform"];
+  const token = req.cookies.integratedCommunityPlatform;
+
+  if (token) {
+    // try {
+    //   const decoded = jwt.verify(token, secretKey);
+    //   req.user = decoded;
+
+    //   if ((res, locals, html)) {
+    //     res.locals.loggedInUser = decoded;
+    //   }
+    //   next();
+    // } catch (err) {
+    //   res.status(500).json({ err: "Authentication failure" });
+    // }
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+        return res.status(500).json({ err: "Authentication failure" });
+      }
+      req.auth = decoded;
+      req.token = token;
+      next();
+    });
+>>>>>>> b613f1610802bd554a92567c18dfd1f8fbdb3947
   } else {
     console.log("No token found, user not authenticated"); // Token was not found
     return res.status(401).json({ err: "You are not authenticated" });
