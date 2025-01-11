@@ -1,24 +1,28 @@
 const jwt = require("jsonwebtoken");
 const secretKey = "2c3f35b8a3988bed11689e3fc1aabe08064abd0d43";
+const cookieParser = require("cookie-parser");
 
 const checkLogin = (req, res, next) => {
-  // const token = req.cookies.loggedInUser;
-  const token = req.cookies["integrated-community-platform"];
+  console.log("Cookies: ", req.cookies); // Log all cookies to check if the token is there
+  console.log("Signed Cookies: ", req.signedCookies); // Log signed cookies
+
+  // Check for token in signed cookies first
+  const token = req.signedCookies.token || req.cookies.token;
+  console.log("Token found in middleware: ", token); // Debugging line to check if token is found
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, secretKey);
-      req.user = decoded;
-
-      if ((res, locals, html)) {
-        res.locals.loggedInUser = decoded;
-      }
-      next();
+      const user = jwt.verify(token, secretKey); // Verify the token
+      req.user = user; // Attach the user to the request object
+      console.log("Decoded user from token: ", user); // Debugging line to see decoded user info
+      next(); // Proceed to the next middleware or route
     } catch (err) {
+      console.error("JWT verification error: ", err); // Error during verification
       res.status(500).json({ err: "Authentication failure" });
     }
   } else {
-    return res.json({ err: "Your are not authenticated" });
+    console.log("No token found, user not authenticated"); // Token was not found
+    return res.status(401).json({ err: "You are not authenticated" });
   }
 };
 

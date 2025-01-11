@@ -1,10 +1,11 @@
 const fetchUserProfile = async () => {
   console.log(localStorage);
-
+  // console.log(getCookie("token"));
   const response = await fetch(`http://localhost:5000/user/profile`, {
     method: "GET",
-    // headers: { Authorization: `Bearer ${token}` },
+    // headers: { Authorization: "Bearer " + getCookie("token") },
     headers: { "Content-Type": "application/json" },
+    credentials: "include",
   });
   if (response.ok) {
     const userData = await response.json();
@@ -59,3 +60,10 @@ quickAccessLinks.forEach((linkId) => {
     alert(`Navigate to ${this.querySelector("h3").textContent} page`);
   });
 });
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+  return null;
+}

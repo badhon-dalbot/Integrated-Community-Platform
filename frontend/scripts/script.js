@@ -27,12 +27,13 @@ loginForm.addEventListener("submit", async (e) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
+      credentials: "include",
     });
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data.username);
-      localStorage.setItem("username", data.username);
+      console.log(data);
+      localStorage.setItem("username", data.user.username);
       // console.log(localStorage.getItem("token"));
       // alert("Login successful!");
       window.location.href =

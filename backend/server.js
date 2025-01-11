@@ -1,7 +1,6 @@
 const express = require("express");
-const mysql = require("mysql");
-const cookies = require("cookie-parser");
-
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 const path = require("path"); // Add path module
 const cors = require("cors");
 const db = require("./database"); // Import the database connection
@@ -9,18 +8,33 @@ const userRoute = require("./routes/userRoutes");
 const app = express();
 const port = 5000;
 const secretKey = "2c3f35b8a3988bed11689e3fc1aabe08064abd0d43";
-
-const jwt = require("jsonwebtoken");
+app.use(cookieParser(secretKey));
 // Middleware to parse incoming requests
 app.use(express.json()); // To parse JSON bodies
-app.use(cors());
-app.use(cookies());
+
+app.use(
+  cors({
+    origin: "http://127.0.0.1:5500",
+    method: ["GET", "POST  "],
+    credentials: true,
+  })
+);
+
+// {
+//   origin: "http:/127.0.0.1:5500",
+//   methods: ["GET", "POST", "DELETE", "OPTIONS", "PUT"],
+//   Credentials: true,
+// }
+
 app.use(express.urlencoded({ extended: true })); // To parse URL-encoded bodies
 
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, "../frontend"))); // This serves files from the frontend folder
 //middlware
-
+app.use((req, res, next) => {
+  console.log("request cookies: ", req.cookies);
+  next();
+});
 // Routes
 
 app.get("/", (req, res) => {
@@ -29,12 +43,6 @@ app.get("/", (req, res) => {
 
 // Login API route
 app.post("/login", (req, res) => {
-  const token = req.cookies.loggedInUser;
-
-  if (token) {
-    return res.json({ status: "Success" });
-  }
-
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -53,35 +61,25 @@ app.post("/login", (req, res) => {
     }
 
     const user = results[0];
-    res.json({
-      message: "login successful",
-      username: user.username,
-    });
-    //token
-    const token = jwt.sign(user, secretKey, { expiresIn: "1d" });
-    // res.json({ token });
+    const token = jwt.sign(
+      { id: user.user_id, username: user.username },
+      "yourSecretKey",
+      { expiresIn: "1d" }
+    );
 
-    //set cookie
-    res.cookie("integrated-community-platform", token, {
-      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-      httpOnly: true,
-      signed: true,
+    console.log("generated token: ", token);
+
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      httpOnly: true, // Cookie can only be accessed by the server
+      signed: true, // Ensure it's a signed cookie
     });
-    // return res.redirect("/");
 
     res.json({
-      message: "login successful",
-      username: user.username,
+      message: "Login successful",
+      user: user,
       token: token,
     });
-
-    res.locals.loggedInUser = user;
-
-    if (results.length > 0) {
-      return res.status(200).json({ message: "Login successful" });
-    } else {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
   });
 });
 
