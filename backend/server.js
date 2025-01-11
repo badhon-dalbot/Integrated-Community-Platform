@@ -10,6 +10,8 @@ const port = 5000;
 const secretKey = "2c3f35b8a3988bed11689e3fc1aabe08064abd0d43";
 app.use(cookieParser(secretKey));
 const lostAndFoundRoute = require("./routes/lostAndFoundRout");
+const events = require("./routes/eventsRouts");
+const buyAndSell = require("./routes/buyAndSellRouts");
 
 // Middleware to parse incoming requests
 app.use(express.json()); // To parse JSON bodies
@@ -163,6 +165,9 @@ app.use("/user", userRoute);
 //lost and found
 
 app.use("/lost-and-found", lostAndFoundRoute);
+
+app.use("/events", events);
+app.use("/buyAndSell", buyAndSell);
 // Update user Profile
 // app.put("/user/:id", (req, res) => {
 //   const userId = req.params.id;
