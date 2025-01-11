@@ -8,13 +8,9 @@ const userRoute = require("./routes/userRoutes");
 const app = express();
 const port = 5000;
 const secretKey = "2c3f35b8a3988bed11689e3fc1aabe08064abd0d43";
-<<<<<<< HEAD
 app.use(cookieParser(secretKey));
-=======
-const jwt = require("jsonwebtoken");
 const lostAndFoundRoute = require("./routes/lostAndFoundRout");
 
->>>>>>> b613f1610802bd554a92567c18dfd1f8fbdb3947
 // Middleware to parse incoming requests
 app.use(express.json()); // To parse JSON bodies
 
@@ -49,15 +45,12 @@ app.get("/", (req, res) => {
 
 // Login API route
 app.post("/login", (req, res) => {
-<<<<<<< HEAD
-=======
   // const token = req.cookies.loggedInUser;
 
   // if (token) {
   //   return res.json({ status: "Success" });
   // }
 
->>>>>>> b613f1610802bd554a92567c18dfd1f8fbdb3947
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -76,7 +69,6 @@ app.post("/login", (req, res) => {
     }
 
     const user = results[0];
-<<<<<<< HEAD
     const token = jwt.sign(
       { id: user.user_id, username: user.username },
       "yourSecretKey",
@@ -89,30 +81,17 @@ app.post("/login", (req, res) => {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
       httpOnly: true, // Cookie can only be accessed by the server
       signed: true, // Ensure it's a signed cookie
-=======
-    // res.json({
-    //   message: "login successful",
-    //   username: user.username,
-    // });
-    //token
-    const token = jwt.sign(user, secretKey, { expiresIn: "1d" });
-    // res.json({ token });
-
-    //set cookie
-    res.cookie("integratedCommunityPlatform", token, {
-      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-      httpOnly: true,
-      signed: true,
->>>>>>> b613f1610802bd554a92567c18dfd1f8fbdb3947
+      // res.json({
+      //   message: "login successful",
+      //   username: user.username,
     });
+    //token
 
     res.json({
       message: "Login successful",
       user: user,
       token: token,
     });
-<<<<<<< HEAD
-=======
 
     // res.locals.loggedInUser = user;
 
@@ -121,15 +100,20 @@ app.post("/login", (req, res) => {
     // } else {
     //   return res.status(401).json({ error: "Invalid credentials" });
     // }
->>>>>>> b613f1610802bd554a92567c18dfd1f8fbdb3947
   });
 });
-
 // Registration API route
 app.post("/register", (req, res) => {
-  const { username, name, email, password, phonenumber, city, district, division } =
-    req.body;
- 
+  const {
+    username,
+    name,
+    email,
+    password,
+    phonenumber,
+    city,
+    district,
+    division,
+  } = req.body;
 
   // Validation (Optional)
   if (
