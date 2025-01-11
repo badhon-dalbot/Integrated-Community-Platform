@@ -92,14 +92,6 @@ app.post("/login", (req, res) => {
       user: user,
       token: token,
     });
-
-    // res.locals.loggedInUser = user;
-
-    // if (results.length > 0) {
-    //   return res.status(200).json({ message: "Login successful" });
-    // } else {
-    //   return res.status(401).json({ error: "Invalid credentials" });
-    // }
   });
 });
 // Registration API route
