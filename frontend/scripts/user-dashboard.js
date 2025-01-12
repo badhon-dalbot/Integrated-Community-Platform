@@ -46,12 +46,7 @@ document
     window.location.href = "profile.html";
   });
 
-const quickAccessLinks = [
-  "lost-found-link",
-  "marketplace-link",
-  "alerts-link",
-  "events-link",
-];
+const quickAccessLinks = ["lost-found", "marketplace", "emergency", "events"];
 quickAccessLinks.forEach((linkId) => {
   document.getElementById(linkId).addEventListener("click", function (e) {
     e.preventDefault();

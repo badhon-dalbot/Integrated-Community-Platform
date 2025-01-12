@@ -12,6 +12,7 @@ app.use(cookieParser(secretKey));
 const lostAndFoundRoute = require("./routes/lostAndFoundRout");
 const events = require("./routes/eventsRouts");
 const buyAndSell = require("./routes/buyAndSellRouts");
+const emergencyAlert = require("./routes/emergencyAlertRouts");
 
 // Middleware to parse incoming requests
 app.use(express.json()); // To parse JSON bodies
@@ -167,7 +168,8 @@ app.use("/user", userRoute);
 app.use("/lost-and-found", lostAndFoundRoute);
 
 app.use("/events", events);
-app.use("/buyAndSell", buyAndSell);
+app.use("/buy-Sell", buyAndSell);
+app.use("/emergency-alert", emergencyAlert);
 // Update user Profile
 // app.put("/user/:id", (req, res) => {
 //   const userId = req.params.id;

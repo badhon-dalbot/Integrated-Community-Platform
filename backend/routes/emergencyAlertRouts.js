@@ -5,13 +5,13 @@ const db = require("../database");
 
 const emergencyAlert = express.Router();
 
-emergencyAlert.get("/", (req, res) => {
+emergencyAlert.get("/alerts", (req, res) => {
   // const { username } = req.user;
   // console.log(userId);
   // console.log(username);
   // if (!username) return res.status(400).json({ error: "user id required" });
 
-  const query = `SELECT * FROM evergency_alert`;
+  const query = `SELECT * FROM emergency_alert`;
   db.query(query, (err, results) => {
     if (err || results.length === 0) {
       res.status(500).json({ error: "Failed to fetch user data" });
