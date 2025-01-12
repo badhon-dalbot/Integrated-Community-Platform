@@ -6,8 +6,7 @@ body {
 }
 
 header {
-    background: #4a90e2; /* Blue header */
-    color: #ffffff;
+    background-image: linear-gradient(43deg, #dbdf12 0%, #1baacd 35%, #50c8a8 70%, #00072d 100%);
     padding: 20px 0;
     text-align: center;
 }
@@ -33,6 +32,8 @@ nav ul li a:hover {
 }
 
 main {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 

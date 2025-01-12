@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Emergency Messages</title>
+    <link rel="stylesheet" href="css/emergency.css" />
 </head>
 <body>
-    
+
+    <header>
+        <h1>🚨 Emergency</h1>
+        <nav>
+            <ul>
+                <li><a href="/frontend/home.html">Home</a></li>
+                <li><a href="/frontend/marketplace.html">Marketplace</a></li>
+                <li><a href="/frontend/lost-found.html">Lost-Found</a></li>
+                <li><a href="/frontend/events.html">Events</a></li>
+            </ul>
+        </nav> 
+    </header>
+
+    <div class="container">
+        <!-- Form to Add Message -->
+        <div class="form-container">
+            <h2>Add Emergency Message</h2>
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" placeholder="Enter title">
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" rows="4" placeholder="Enter description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="date_issued">Date Issued:</label>
+                <input type="date" id="date_issued">
+            </div>
+            <div class="form-group">
+                <label for="time_issued">Time Issued:</label>
+                <input type="time" id="time_issued">
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status">
+                    <option value="Active">Active</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+            </div>
+            <button class="btn" id="addMessageBtn">Add Message</button>
+        </div>
+
+        <!-- Display Messages -->
+        <div class="messages" id="messages">
+            <h2>All Emergency Messages</h2>
+            <!-- Cards will be dynamically added here -->
+        </div>
+    </div>
+
+    <script src="/frontend/scripts/emergency.js"></script>
+
 </body>
 </html>

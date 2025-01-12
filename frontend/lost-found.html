@@ -3,9 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lost & Found</title>
+    <link rel="stylesheet" href="css/lost-found.css">
 </head>
 <body>
-    
+
+    <header>
+        <h1>🔍 Lost & Found</h1>
+        <nav>
+            <ul>
+                <li><a href="/frontend/home.html">Home</a></li>
+                <li><a href="/frontend/marketplace.html">Marketplace</a></li>
+                <li><a href="/frontend/emergency.html">Emergency</a></li>
+                <li><a href="/frontend/events.html">Events</a></li>
+            </ul>
+        </nav> 
+    </header>
+
+    <div class="container">
+
+        <!-- Form to Add Item -->
+        <div class="form-container">
+            <h2>Add Item</h2>
+            <div class="error" id="error"></div>
+            <div class="form-group">
+                <label for="table">Select Table:</label>
+                <select id="table">
+                    <option value="">-- Select Table --</option>
+                    <option value="lost_item">Lost Item</option>
+                    <option value="found_item">Found Item</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="item_name">Item Name:</label>
+                <input type="text" id="item_name" placeholder="Enter item name">
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" rows="4" placeholder="Enter description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="photo_url">Photo URL:</label>
+                <input type="url" id="photo_url" placeholder="Enter photo URL">
+            </div>
+            <div class="form-group">
+                <label for="contact">Contact Details:</label>
+                <input type="text" id="contact" placeholder="Enter contact details">
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date">
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" placeholder="Enter location">
+            </div>
+            <button class="btn" id="addItemBtn">Add Item</button>
+        </div>
+
+        <!-- Lost Items -->
+        <div class="section" id="lostItemsSection">
+            <h2>Lost Items</h2>
+            <div id="lostItems"></div>
+        </div>
+
+        <!-- Found Items -->
+        <div class="section" id="foundItemsSection">
+            <h2>Found Items</h2>
+            <div id="foundItems"></div>
+        </div>
+    </div>
+
+    <script src="scripts/lost-found.js"></script>
 </body>
 </html>
