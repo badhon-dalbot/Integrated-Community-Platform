@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Marketplace</title>
+    <link rel="stylesheet" href="css/marketplace.css">
+</head>
+<body>
+    <header>
+        <h1>🛒 Marketplace</h1>
+        <nav>
+            <ul>
+                <li><a href="/frontend/home.html">Home</a></li>
+                <li><a href="/frontend/lost-found.html">Lost-Found</a></li>
+                <li><a href="/frontend/events.html">Events</a></li>
+                <li><a href="/frontend/emergency.html">Emergency</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="sell-item">
+            <h2>Sell Your Item</h2>
+            <form id="item-form">
+                <input type="text" id="item-title" placeholder="Item Title" required>
+                <textarea id="item-description" placeholder="Item Description" required></textarea>
+                <input type="number" id="item-price" placeholder="Item Price" required>
+                <input type="text" id="item-photo-url" placeholder="Photo URL" required>
+                
+                <label for="item-category">Category:</label>
+                <select id="item-category" required>
+                    <option value="">Select Category</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="furniture">Furniture</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="toys">Toys</option>
+                </select>
+
+                <label for="item-location">Location:</label>
+                <select id="item-location" required>
+                    <option value="">Select Location</option>
+                    <option value="city-center">City Center</option>
+                    <option value="suburbs">Suburbs</option>
+                    <option value="rural">Rural Area</option>
+                </select>
+
+                <button type="submit">Add Item</button>
+            </form>
+        </section>
+
+        <section id="item-list">
+            <h2>Available Items</h2>
+            <div id="items-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Community Marketplace</p>
+    </footer>
+
+    <script src="scripts/marketplace.js"></script>
+</body>
+</html>

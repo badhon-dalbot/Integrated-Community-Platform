@@ -146,6 +146,7 @@ nav {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s ease;
+    height: 18rem;
 }
 
 .feature-card:hover {
@@ -163,6 +164,12 @@ nav {
 
 .marketplace {
     color: var(--secondary-color);
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
 }
 
 .emergency {
