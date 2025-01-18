@@ -1,17 +1,29 @@
+const getQueryParams = () => {
+  const params = new URLSearchParams(window.location.search);
+  const username = params.get("username");
+  return username;
+};
 const fetchUserProfile = async () => {
-  const response = await fetch(`http://localhost:5000/user/profile`, {
-    method: "GET",
-    // headers: { Authorization: "Bearer " + getCookie("token") },
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-  });
+  const username = getQueryParams();
+  console.log("username", username);
+
+  const response = await fetch(
+    `http://localhost:5000/user/profile/${username}`
+    // {
+    //   method: "GET",
+    //   // headers: { Authorization: "Bearer " + getCookie("token") },
+    //   headers: { "Content-Type": "application/json" },
+    // }
+  );
   if (response.ok) {
     const userData = await response.json();
-    console.log(userData);
-    document.getElementById("user-name").textContent = userData.username;
-    document.getElementById("profile-name").textContent = userData.fullName;
-    document.getElementById("profile-email").textContent = userData.email;
-    document.getElementById("member-since").textContent = userData.memberSince;
+    const date = new Date(userData.user?.time);
+    document.getElementById("user-name").textContent = userData.user?.username;
+    document.getElementById("profile-name").textContent =
+      userData.user?.fullName;
+    document.getElementById("profile-email").textContent = userData.user?.email;
+    document.getElementById("member-since").textContent =
+      date.toLocaleDateString("en-GB");
 
     // Update activity counts
     document.getElementById(
