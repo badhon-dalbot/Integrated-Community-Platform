@@ -36,9 +36,18 @@ app.use(express.static(path.join(__dirname, "../frontend"))); // This serves fil
 // Routes
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html")); // Serve the index.html file
+  res.sendFile(path.join(__dirname, "frontend", "index.html")); // Serve the index.html file
 });
 
+// app.get("/profile.html", (req, res) => {
+//   const username = req.query.username;
+//   console.log(username);
+//   res.sendFile(path.join(__dirname, "frontend", "profile.html"));
+// });
+
+// app.get("/user-dashboard/:username", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../frontend", "user-dashboard.html"));
+// });
 // Login API route
 app.post("/login", (req, res) => {
   const { username, password } = req.body;

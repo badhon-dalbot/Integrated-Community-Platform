@@ -1,141 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="css/profile.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Profile</title>
-  <link rel="stylesheet" href="css/profile.css" />
-</head>
-
-<body>
-  <!-- mode toggle section -->
-  <div class="mode-toggle">
-    <p>Theme</p>
-    <label class="theme">
-      <input class="input" checked="checked" type="checkbox" id="dark-mode" />
-      <svg width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
-        stroke="currentColor" height="24" fill="none" class="icon icon-sun">
-        <circle r="5" cy="12" cx="12"></circle>
-        <line y2="3" y1="1" x2="12" x1="12"></line>
-        <line y2="23" y1="21" x2="12" x1="12"></line>
-        <line y2="5.64" y1="4.22" x2="5.64" x1="4.22"></line>
-        <line y2="19.78" y1="18.36" x2="19.78" x1="18.36"></line>
-        <line y2="12" y1="12" x2="3" x1="1"></line>
-        <line y2="12" y1="12" x2="23" x1="21"></line>
-        <line y2="18.36" y1="19.78" x2="5.64" x1="4.22"></line>
-        <line y2="4.22" y1="5.64" x2="19.78" x1="18.36"></line>
-      </svg>
-      <svg viewBox="0 0 24 24" class="icon icon-moon">
-        <path
-          d="m12.3 4.9c.4-.2.6-.7.5-1.1s-.6-.8-1.1-.8c-4.9.1-8.7 4.1-8.7 9 0 5 4 9 9 9 3.8 0 7.1-2.4 8.4-5.9.2-.4 0-.9-.4-1.2s-.9-.2-1.2.1c-1 .9-2.3 1.4-3.7 1.4-3.1 0-5.7-2.5-5.7-5.7 0-1.9 1.1-3.8 2.9-4.8zm2.8 12.5c.5 0 1 0 1.4-.1-1.2 1.1-2.8 1.7-4.5 1.7-3.9 0-7-3.1-7-7 0-2.5 1.4-4.8 3.5-6-.7 1.1-1 2.4-1 3.8-.1 4.2 3.4 7.6 7.6 7.6z">
-        </path>
-      </svg>
-    </label>
-  </div>
-  <!-- mode toggle section end -->
-
-  <div class="container">
-    <div class="profile-photo">
-      <!-- Correct relative path to access the image -->
-      <img src="../images/profile.jpg" alt="Profile Photo" id="profile-img" />
+  <body>
+    <!-- mode toggle section -->
+    <div class="mode-toggle">
+      <p>Theme</p>
+      <label class="theme">
+        <input class="input" checked="checked" type="checkbox" id="dark-mode" />
+        <svg
+          width="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          stroke="currentColor"
+          height="24"
+          fill="none"
+          class="icon icon-sun"
+        >
+          <circle r="5" cy="12" cx="12"></circle>
+          <line y2="3" y1="1" x2="12" x1="12"></line>
+          <line y2="23" y1="21" x2="12" x1="12"></line>
+          <line y2="5.64" y1="4.22" x2="5.64" x1="4.22"></line>
+          <line y2="19.78" y1="18.36" x2="19.78" x1="18.36"></line>
+          <line y2="12" y1="12" x2="3" x1="1"></line>
+          <line y2="12" y1="12" x2="23" x1="21"></line>
+          <line y2="18.36" y1="19.78" x2="5.64" x1="4.22"></line>
+          <line y2="4.22" y1="5.64" x2="19.78" x1="18.36"></line>
+        </svg>
+        <svg viewBox="0 0 24 24" class="icon icon-moon">
+          <path
+            d="m12.3 4.9c.4-.2.6-.7.5-1.1s-.6-.8-1.1-.8c-4.9.1-8.7 4.1-8.7 9 0 5 4 9 9 9 3.8 0 7.1-2.4 8.4-5.9.2-.4 0-.9-.4-1.2s-.9-.2-1.2.1c-1 .9-2.3 1.4-3.7 1.4-3.1 0-5.7-2.5-5.7-5.7 0-1.9 1.1-3.8 2.9-4.8zm2.8 12.5c.5 0 1 0 1.4-.1-1.2 1.1-2.8 1.7-4.5 1.7-3.9 0-7-3.1-7-7 0-2.5 1.4-4.8 3.5-6-.7 1.1-1 2.4-1 3.8-.1 4.2 3.4 7.6 7.6 7.6z"
+          ></path>
+        </svg>
+      </label>
     </div>
-    <h1 id="profile">User Profile</h1>
-    <div id="profile-info">
-      <!-- <p><strong>Name:</strong> <span id="profile-name"></span></p>
-      <p><strong>Username:</strong> <span id="profile-username"></span></p>
-      <p><strong>Phone:</strong> <span id="profile-phone"></span></p>
-      <p><strong>Email:</strong> <span id="profile-email"></span></p>
-      <p><strong>Address:</strong> <span id="profile-address"></span></p>
-      <p><strong>Role:</strong> <span id="profile-role"></span></p> -->
+    <!-- mode toggle section end -->
 
-      <form id="register-form">
-        <label for="reg-name">Full Name:</label>
-        <input type="text" id="reg-name" placeholder="Full Name" required /><br />
-        <label for="reg-username">Username:</label>
-        <input
-          type="text"
-          id="reg-username"
-          placeholder="Username"
-          required
-        /><br/>
-        <label for="reg-phone">Phone Number:</label>
-        <input
-          type="tel"
-          id="reg-phone"
-          placeholder="Phone Number"
-          required
-        /><br/>
-        <label for="reg-email">Email:</label>
-        <input type="email" id="reg-email" placeholder="Email" required /><br/>
-        <!-- <textarea id="reg-address" placeholder="Address" required></textarea> -->
-        <label for="city">City:</label>
-        <select id="city" required>
-          <option value="City">Town / City</option>
-          <option value="Badda">Badda</option>
-          <option value="Gulshan-1">Gulshan-1</option>
-          <option value="Gulshan-2">Gulshan-2</option>
-          <option value="Banani">Banani</option>
-          <option value="Baridhara">Baridhara</option>
-          <option value="Uttara">Uttara</option>
-          <option value="Dhanmondi">Dhanmondi</option>
-          <option value="Mohammadpur">Mohammadpur</option>
-          <option value="Mirpur">Mirpur</option>
-          <option value="Farmgate">Farmgate</option>
-          <option value="Motijheel">Motijheel</option>
-          <option value="Paltan">Paltan</option>
-          <option value="Kawran Bazar">Kawran Bazar</option>
-        </select> <br>
+    <div class="container">
+      <div class="profile-photo">
+        <!-- Correct relative path to access the image -->
+        <img src="../images/profile.jpg" alt="Profile Photo" id="profile-img" />
+      </div>
+      <h1 id="profile">User Profile</h1>
+      <div id="profile-info">
+        <form id="register-form">
+          <label for="reg-name">Full Name:</label>
+          <input
+            type="text"
+            id="reg-name"
+            placeholder="Full Name"
+            required
+          /><br />
+          <label for="reg-username">Username:</label>
+          <input
+            type="text"
+            id="reg-username"
+            placeholder="Username"
+            required
+          /><br />
+          <label for="reg-phone">Phone Number:</label>
+          <input
+            type="tel"
+            id="reg-phone"
+            placeholder="Phone Number"
+            required
+          /><br />
+          <label for="reg-email">Email:</label>
+          <input
+            type="email"
+            id="reg-email"
+            placeholder="Email"
+            required
+          /><br />
+          <!-- <textarea id="reg-address" placeholder="Address" required></textarea> -->
+          <label for="city">City:</label>
+          <select id="city" required>
+            <option value="City">Town / City</option>
+            <option value="Badda">Badda</option>
+            <option value="Gulshan-1">Gulshan-1</option>
+            <option value="Gulshan-2">Gulshan-2</option>
+            <option value="Banani">Banani</option>
+            <option value="Baridhara">Baridhara</option>
+            <option value="Uttara">Uttara</option>
+            <option value="Dhanmondi">Dhanmondi</option>
+            <option value="Mohammadpur">Mohammadpur</option>
+            <option value="Mirpur">Mirpur</option>
+            <option value="Farmgate">Farmgate</option>
+            <option value="Motijheel">Motijheel</option>
+            <option value="Paltan">Paltan</option>
+            <option value="Kawran Bazar">Kawran Bazar</option>
+          </select>
+          <br />
 
-        <label for="district">District:</label>
-        <select id="district" required>
-          <option value="District">District</option>
-          <option value="Dhaka">Dhaka</option>
-          <option value="Gazipur">Gazipur</option>
-          <option value="Kishoreganj">Kishoreganj</option>
-          <option value="Manikganj">Manikganj</option>
-          <option value="Munshiganj">Munshiganj</option>
-          <option value="Narayanganj">Narayanganj</option>
-          <option value="Tangail">Tangail</option>
-          <option value="Gopalganj">Gopalganj</option>
-        </select><br/>
+          <label for="district">District:</label>
+          <select id="district" required>
+            <option value="District">District</option>
+            <option value="Dhaka">Dhaka</option>
+            <option value="Gazipur">Gazipur</option>
+            <option value="Kishoreganj">Kishoreganj</option>
+            <option value="Manikganj">Manikganj</option>
+            <option value="Munshiganj">Munshiganj</option>
+            <option value="Narayanganj">Narayanganj</option>
+            <option value="Tangail">Tangail</option>
+            <option value="Gopalganj">Gopalganj</option></select
+          ><br />
 
-        <label for="division">Division:</label>
-        <select id="division" required>
-          <option value="Division">Division</option>
-          <option value="Dhaka">Dhaka</option>
-          <option value="Chattogram">Chattogram</option>
-          <option value="Khulna">Khulna</option>
-          <option value="Rajshahi">Rajshahi</option>
-          <option value="Sylhet">Sylhet</option>
-          <option value="Barishal">Barishal</option>
-          <option value="Rangpur">Rangpur</option>
-          <option value="Mymensingh">Mymensingh</option>
-        </select><br>
+          <label for="division">Division:</label>
+          <select id="division" required>
+            <option value="Division">Division</option>
+            <option value="Dhaka">Dhaka</option>
+            <option value="Chattogram">Chattogram</option>
+            <option value="Khulna">Khulna</option>
+            <option value="Rajshahi">Rajshahi</option>
+            <option value="Sylhet">Sylhet</option>
+            <option value="Barishal">Barishal</option>
+            <option value="Rangpur">Rangpur</option>
+            <option value="Mymensingh">Mymensingh</option></select
+          ><br />
 
-        <label for="password">Password:</label>
-        <input
-          type="password"
-          id="reg-password"
-          placeholder="Current Password"
-          required
-        /> <br>
-        <label for="password">Password:</label>
-        <input
-          type="password"
-          id="reg-password"
-          placeholder="New Password"
-          required
-        /> <br>
-        <button type="submit">Save</button>
-      </form> 
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Current Password"
+            required
+          />
+          <br />
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="re-password"
+            placeholder="New Password"
+            required
+          />
+          <br />
+          <button type="submit">Save</button>
+        </form>
+      </div>
+      <br />
+      <button id="logout-btn">Logout</button>
     </div>
-    <br>
-    <button id="logout-btn">Logout</button>
-  </div>
 
-  <script src="scripts/utilites.js"></script>
-  <script src="scripts/profile.js"></script>
-</body>
-
+    <script src="scripts/utilites.js"></script>
+    <script src="scripts/profile.js"></script>
+  </body>
 </html>

@@ -100,4 +100,89 @@ userRoute.get("/profile/:username", (req, res) => {
   });
 });
 
+userRoute.put("/profile", (req, res) => {
+  const {
+    username,
+    fullName,
+    phoneNumber,
+    email,
+    city,
+    district,
+    division,
+    currentPassword,
+    newPassword,
+  } = req.body;
+
+  // Check if all required fields are present
+  if (
+    !username ||
+    !fullName ||
+    !phoneNumber ||
+    !email ||
+    !city ||
+    !district ||
+    !division ||
+    !currentPassword
+  ) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  // First, retrieve the stored password for the user
+  const checkPasswordQuery = "SELECT password FROM users WHERE username = ?";
+  db.query(checkPasswordQuery, [username], (err, results) => {
+    if (err) {
+      console.error("Error checking password:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while checking the password." });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    const storedPassword = results[0].password;
+
+    // Check if the provided currentPassword matches the stored password
+    if (currentPassword !== storedPassword) {
+      return res.status(401).json({ error: "Incorrect current password." });
+    }
+
+    // Optionally, check if password is provided and if it needs to be updated
+    let updatePasswordQuery = "";
+    if (newPassword) {
+      // Include newPassword in the update query
+      updatePasswordQuery = `, password = ?`;
+    }
+
+    // SQL query to update the user's data
+    const query = `
+      UPDATE users
+      SET name = ?, phonenumber = ?, email = ?, city = ?, district = ?, division = ? ${updatePasswordQuery}
+      WHERE username = ?`;
+
+    const params = [fullName, phoneNumber, email, city, district, division];
+
+    // If password update is included
+    if (newPassword) {
+      params.push(newPassword);
+    }
+
+    // Add the username as the final parameter for the WHERE clause
+    params.push(username);
+
+    // Run the query to update the database
+    db.query(query, params, (err, results) => {
+      if (err) {
+        console.error("Error updating profile:", err);
+        return res
+          .status(500)
+          .json({ error: "An error occurred while updating your profile." });
+      }
+
+      res.json({ message: "Profile updated successfully!" });
+    });
+  });
+});
+
 module.exports = userRoute;

@@ -3,8 +3,8 @@ const getQueryParams = () => {
   const username = params.get("username");
   return username;
 };
+const username = getQueryParams();
 const fetchUserProfile = async () => {
-  const username = getQueryParams();
   console.log("username", username);
 
   const response = await fetch(
@@ -55,7 +55,9 @@ document.getElementById("logout-btn").addEventListener("click", function () {
 document
   .getElementById("edit-profile-btn")
   .addEventListener("click", function () {
-    window.location.href = "profile.html";
+    window.location.href = `/frontend/profile.html?username=${encodeURIComponent(
+      username
+    )}`;
   });
 
 const quickAccessLinks = ["lost-found", "marketplace", "emergency", "events"];
