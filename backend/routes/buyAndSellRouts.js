@@ -1,5 +1,4 @@
 const express = require("express");
-const checkLogin = require("../middleware/middleware");
 
 const db = require("../database");
 
@@ -9,6 +8,23 @@ buyAndSell.get("/", (req, res) => {
   //     //   const { username } = req.user;
 
   const query = `SELECT * FROM buy_sell_item`;
+  db.query(query, (err, results) => {
+    if (err) {
+      res.status(500).send("Error fetching data from database");
+      return;
+    }
+    console.log(results);
+    res.status(200).json(results);
+  });
+});
+
+buyAndSell.get("/categories", (req, res) => {
+  //     //   const { username } = req.user;
+
+  const query = `SELECT category, COUNT(*) AS item_count
+FROM buy_sell_item
+GROUP BY category
+ORDER BY item_count DESC;`;
   db.query(query, (err, results) => {
     if (err) {
       res.status(500).send("Error fetching data from database");

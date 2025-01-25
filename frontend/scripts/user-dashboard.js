@@ -4,6 +4,7 @@ const getQueryParams = () => {
   return username;
 };
 const username = getQueryParams();
+localStorage.setItem("username", username);
 const fetchUserProfile = async () => {
   console.log("username", username);
 

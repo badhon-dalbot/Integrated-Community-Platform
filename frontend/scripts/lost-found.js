@@ -1,3 +1,5 @@
+// Modal functionality
+
 // Fetch and display lost and found items
 const getLostItems = async () => {
   // Replace with API endpoints for fetching items
