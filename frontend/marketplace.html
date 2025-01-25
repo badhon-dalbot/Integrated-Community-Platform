@@ -4,61 +4,537 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community Marketplace</title>
-    <link rel="stylesheet" href="css/marketplace.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #7cba3d 0%, #2196f3 100%);
+            color: white;
+        }
+
+        header {
+            padding: 1rem 2rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav {
+            padding: 0.5rem 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        nav ul {
+            max-width: 1200px;
+            margin: 0 auto;
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+        }
+
+        nav a:hover {
+            border-bottom: 2px solid white;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        .categories {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .categories h2 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-list li:last-child {
+            border-bottom: none;
+        }
+
+        .category-list button {
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        .category-list button:hover {
+            color: #2196f3;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+
+        .category-list button.active {
+            color: #2196f3;
+            font-weight: bold;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 2rem;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .add-item-btn {
+            background-color: #2196f3;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-item-btn:hover {
+            background-color: #1976d2;
+        }
+
+        button[type="submit"] {
+            background-color: #2196f3;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #1976d2;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .item-info {
+            padding: 1rem;
+        }
+
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .item-price {
+            color: #2196f3;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-category {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            .categories {
+                margin-bottom: 2rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .modal-content {
+                margin: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>🛒 Marketplace</h1>
+    <header class="gradient-bg">
+        <div class="header-content">
+            <span class="cart-icon">🛒</span>
+            <h1 class="site-title">Marketplace</h1>
+        </div>
         <nav>
             <ul>
-                <li><a href="/frontend/home.html">Home</a></li>
-                <li><a href="/frontend/lost-found.html">Lost-Found</a></li>
-                <li><a href="/frontend/events.html">Events</a></li>
-                <li><a href="/frontend/emergency.html">Emergency</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#lost-found">Lost-Found</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#emergency">Emergency</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="sell-item">
-            <h2>Sell Your Item</h2>
-            <form id="item-form">
-                <input type="text" id="item-title" placeholder="Item Title" required>
-                <textarea id="item-description" placeholder="Item Description" required></textarea>
-                <input type="number" id="item-price" placeholder="Item Price" required>
-                <input type="text" id="item-photo-url" placeholder="Photo URL" required>
-                
-                <label for="item-category">Category:</label>
-                <select id="item-category" required>
-                    <option value="">Select Category</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="furniture">Furniture</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="toys">Toys</option>
-                </select>
+        <aside class="categories">
+            <h2>Categories</h2>
+            <ul class="category-list" id="categoryList">
+                <li><button class="active" data-category="all">All Items</button></li>
+                <li><button data-category="electronics">Electronics</button></li>
+                <li><button data-category="furniture">Furniture</button></li>
+                <li><button data-category="clothing">Clothing</button></li>
+                <li><button data-category="books">Books</button></li>
+                <li><button data-category="sports">Sports & Outdoors</button></li>
+                <li><button data-category="vehicles">Vehicles</button></li>
+                <li><button data-category="other">Other</button></li>
+            </ul>
+        </aside>
 
-                <label for="item-location">Location:</label>
-                <select id="item-location" required>
-                    <option value="">Select Location</option>
-                    <option value="city-center">City Center</option>
-                    <option value="suburbs">Suburbs</option>
-                    <option value="rural">Rural Area</option>
-                </select>
-
-                <button type="submit">Add Item</button>
-            </form>
-        </section>
-
-        <section id="item-list">
-            <h2>Available Items</h2>
-            <div id="items-container"></div>
-        </section>
+        <div class="content">
+            <div class="content-header">
+                <h2>Available Items</h2>
+                <button class="add-item-btn" id="openModalBtn">Add Item</button>
+            </div>
+            
+            <div class="items-grid" id="itemsGrid">
+                <!-- Items will be dynamically added here -->
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <p>&copy; 2023 Community Marketplace</p>
-    </footer>
+    <!-- Modal -->
+    <div class="modal" id="sellModal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal" aria-label="Close modal">×</button>
+            <h2 id="modalTitle">Sell Your Item</h2>
+            <form id="sellForm">
+                <div class="form-group">
+                    <label for="itemTitle">Item Title</label>
+                    <input type="text" id="itemTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemDescription">Description</label>
+                    <textarea id="itemDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="itemPrice">Price ($)</label>
+                    <input type="number" id="itemPrice" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemImage">Photo URL</label>
+                    <input type="url" id="itemImage" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemCategory">Category</label>
+                    <select id="itemCategory" required>
+                        <option value="">Select a category</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="furniture">Furniture</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="books">Books</option>
+                        <option value="sports">Sports & Outdoors</option>
+                        <option value="vehicles">Vehicles</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="itemLocation">Location</label>
+                    <select id="itemLocation" required>
+                        <option value="">Select location</option>
+                        <option value="north">North District</option>
+                        <option value="south">South District</option>
+                        <option value="east">East District</option>
+                        <option value="west">West District</option>
+                        <option value="central">Central District</option>
+                    </select>
+                </div>
+                <button type="submit">Add Item</button>
+            </form>
+        </div>
+    </div>
 
-    <script src="scripts/marketplace.js"></script>
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('sellModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModal = document.getElementById('closeModal');
+
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModalFn() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        openModalBtn.addEventListener('click', openModal);
+        closeModal.addEventListener('click', closeModalFn);
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModalFn();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModalFn();
+            }
+        });
+
+        // Demo items data
+        const demoItems = [
+            {
+                title: "MacBook Pro 2021",
+                description: "Excellent condition, M1 chip, 16GB RAM",
+                price: 1299.99,
+                image: "/placeholder.svg?height=200&width=300",
+                category: "electronics",
+                location: "central"
+            },
+            {
+                title: "Leather Sofa",
+                description: "Brown leather, 3-seater, minimal wear",
+                price: 599.99,
+                image: "/placeholder.svg?height=200&width=300",
+                category: "furniture",
+                location: "north"
+            },
+            {
+                title: "Mountain Bike",
+                description: "Trek mountain bike, 21-speed, great condition",
+                price: 349.99,
+                image: "/placeholder.svg?height=200&width=300",
+                category: "sports",
+                location: "west"
+            },
+            {
+                title: "Designer Jacket",
+                description: "Brand new winter jacket, size L",
+                price: 129.99,
+                image: "/placeholder.svg?height=200&width=300",
+                category: "clothing",
+                location: "south"
+            }
+        ];
+
+        // Function to create item card
+        function createItemCard(item) {
+            const card = document.createElement('div');
+            card.className = 'item-card';
+            card.dataset.category = item.category;
+            card.innerHTML = `
+                <img src="${item.image}" alt="${item.title}" class="item-image">
+                <div class="item-info">
+                    <h3 class="item-title">${item.title}</h3>
+                    <p class="item-price">$${item.price.toFixed(2)}</p>
+                    <p class="item-category">${item.category.charAt(0).toUpperCase() + item.category.slice(1)}</p>
+                </div>
+            `;
+            return card;
+        }
+
+        // Function to filter items
+        function filterItems(category) {
+            const items = document.querySelectorAll('.item-card');
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Add demo items
+        const itemsGrid = document.getElementById('itemsGrid');
+        demoItems.forEach(item => {
+            itemsGrid.appendChild(createItemCard(item));
+        });
+
+        // Category filter functionality
+        const categoryButtons = document.querySelectorAll('.category-list button');
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active state
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter items
+                filterItems(button.dataset.category);
+            });
+        });
+
+        // Form submission
+        document.getElementById('sellForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newItem = {
+                title: document.getElementById('itemTitle').value,
+                description: document.getElementById('itemDescription').value,
+                price: parseFloat(document.getElementById('itemPrice').value),
+                image: document.getElementById('itemImage').value,
+                category: document.getElementById('itemCategory').value,
+                location: document.getElementById('itemLocation').value
+            };
+
+            itemsGrid.insertBefore(createItemCard(newItem), itemsGrid.firstChild);
+            this.reset();
+            closeModalFn();
+        });
+    </script>
 </body>
 </html>
+

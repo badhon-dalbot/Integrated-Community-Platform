@@ -20,7 +20,7 @@ app.use(express.json()); // To parse JSON bodies
 app.use(
   cors({
     origin: "http://127.0.0.1:5500",
-    method: ["GET", "POST  "],
+    Credentials: true,
   })
 );
 
@@ -176,6 +176,34 @@ app.use("/emergency-alert", emergencyAlert);
 // });
 
 //middlewire
+
+app.get("/latest-updates", (req, res) => {
+  const query = `SELECT 'Buy and Sell' AS source, item_id, item_name, description AS content, date_listed as created_at
+FROM buy_sell_item
+UNION ALL
+SELECT 'Emergency Alert' AS source, alert_id, title, description AS content, time_issued as created_at
+FROM emergency_alert
+UNION ALL
+SELECT 'Events' AS source, event_id, event_name AS title, description AS content, time as created_at
+FROM event
+UNION ALL
+SELECT 'Found Items' AS source, found_item_id, item_name AS title, description AS content, date_found as created_at
+FROM found_item
+UNION ALL
+SELECT 'Lost Item' AS source, lost_item_id, item_name AS title, description AS content, date_lost as created_at
+FROM lost_item
+ORDER BY created_at DESC
+LIMIT 10;
+`;
+  db.query(query, (err, results) => {
+    if (err) {
+      res.status(500).send("Error fetching data from database");
+      return;
+    }
+    console.log(results);
+    res.status(200).json(results);
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

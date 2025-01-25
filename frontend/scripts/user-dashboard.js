@@ -48,8 +48,10 @@ const fetchUserProfile = async () => {
 fetchUserProfile();
 
 // Event listeners for buttons and links
-document.getElementById("logout-btn").addEventListener("click", function () {
-  alert("Logout functionality to be implemented");
+document.getElementById("logout-btn").addEventListener("click", () => {
+  localStorage.removeItem("username");
+  sessionStorage.removeItem("username");
+  window.location.href = "http://localhost:5000";
 });
 
 document
@@ -65,6 +67,7 @@ quickAccessLinks.forEach((linkId) => {
   document.getElementById(linkId).addEventListener("click", function (e) {
     e.preventDefault();
     // alert(`Navigate to ${this.querySelector("h3").textContent} page`);
-    window.location.href = `${this.querySelector("h3")}.html`;
+    console.log(this.querySelector("h3").textContent);
+    window.location.href = `http://127.0.0.1:5500/frontend/${linkId}.html`;
   });
 });
