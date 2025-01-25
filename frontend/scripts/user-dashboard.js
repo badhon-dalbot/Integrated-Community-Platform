@@ -46,11 +46,11 @@ document
     window.location.href = "profile.html";
   });
 
-const quickAccessLinks = ["lost-found", "marketplace", "emergency", "events"];
-quickAccessLinks.forEach((linkId) => {
-  document.getElementById(linkId).addEventListener("click", function (e) {
-    e.preventDefault();
-    // alert(`Navigate to ${this.querySelector("h3").textContent} page`);
-    window.location.href = `${this.querySelector("h3")}.html`;
-  });
-});
+// const quickAccessLinks = ["lost-found", "marketplace", "emergency", "events"];
+// quickAccessLinks.forEach((linkId) => {
+//   document.getElementById(linkId).addEventListener("click", function (e) {
+//     e.preventDefault();
+//     // alert(`Navigate to ${this.querySelector("h3").textContent} page`);
+//     window.location.href = `${this.querySelector("h3")}.html`;
+//   });
+// });

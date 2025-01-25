@@ -18,7 +18,7 @@ const getLostItems = async () => {
       const card = document.createElement("div");
       card.classList.add("card");
       card.innerHTML = `
-                            <img src="${item.photo_url}" alt="${item.item_name}">
+                            <img class="card-img" src="${item.photo_url}" alt="${item.item_name}">
                             <h3>${item.item_name}</h3>
                             <p>${item.description}</p>
                             <p><strong>Contact:</strong> ${item.contact}</p>

@@ -138,3 +138,12 @@ h1 {
 .card p {
     margin-bottom: 5px;
 }
+
+.card img {
+    width: 80vw;
+    height: 50vh;
+    /* object-fit: cover; */
+    border-radius: 8px;
+    display: block;
+    margin: auto;
+}
