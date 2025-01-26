@@ -9,7 +9,7 @@ function fetchEvents() {
     .then((data) => {
       console.log(data);
       const eventsDiv = document.getElementById("events");
-      eventsDiv.innerHTML = "<h2>All Community Events</h2>"; // Reset events
+      // Reset events
       data.forEach((event) => {
         const card = document.createElement("div");
         card.classList.add("event-card");

@@ -46,7 +46,7 @@ const getCategories = async () => {
 
     const allButton = document.createElement("button");
     allButton.innerText = "All Products";
-    allButton.classList.add("active");
+    allButton.classList.add("category-btn", "active");
     allButton.dataset.category = "all";
     categoryList.appendChild(allButton);
 

@@ -8,7 +8,7 @@ const getMessages = async () => {
     const messages = await response.json();
     console.log(messages);
     const messagesDiv = document.getElementById("messages");
-    messagesDiv.innerHTML = "<h2>All Emergency Messages</h2>"; // Reset messages
+    // Reset messages
     messages.forEach((message) => {
       const card = document.createElement("div");
       card.classList.add("message-card");
