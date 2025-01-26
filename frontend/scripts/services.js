@@ -30,102 +30,91 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// Demo services data
-const demoServices = [
-  {
-    user_id: "12345",
-    service_name: "Expert Plumbing Services",
-    description:
-      "Professional plumber with 10+ years of experience. Available for repairs, installations, and maintenance.",
-    category: "plumbing",
-    price: 75,
-    photo_url: "/placeholder.svg?height=200&width=300",
-    location: "New York, NY",
-  },
-  {
-    user_id: "67890",
-    service_name: "Electrical Repairs and Installations",
-    description:
-      "Licensed electrician offering a wide range of electrical services for residential and commercial properties.",
-    category: "electrical",
-    price: 85,
-    photo_url: "/placeholder.svg?height=200&width=300",
-    location: "Los Angeles, CA",
-  },
-  {
-    user_id: "24680",
-    service_name: "Professional House Cleaning",
-    description:
-      "Thorough and efficient house cleaning services. Eco-friendly products used upon request.",
-    category: "cleaning",
-    price: 30,
-    photo_url: "/placeholder.svg?height=200&width=300",
-    location: "Chicago, IL",
-  },
-  {
-    user_id: "13579",
-    service_name: "Math and Science Tutoring",
-    description:
-      "Experienced tutor offering personalized lessons in mathematics and sciences for high school and college students.",
-    category: "tutoring",
-    price: 40,
-    photo_url: "/placeholder.svg?height=200&width=300",
-    location: "Boston, MA",
-  },
-];
+const getAndRenderCategories = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/services/categories");
+    categories = await response.json();
+    console.log(categories);
+    categoryList.innerHTML = ""; // Clear existing categories
 
+    // Add 'All Services' button
+    const allButton = document.createElement("button");
+    allButton.innerText = "All Services";
+    allButton.classList.add("active");
+    allButton.dataset.category = "all";
+    categoryList.appendChild(allButton);
+
+    // Add individual category buttons
+    categories.forEach((category) => {
+      const button = document.createElement("button");
+      button.innerText = `${category.category} (${category.item_count})`;
+      button.dataset.category = category.category;
+      categoryList.appendChild(button);
+    });
+    const categoryButtons = document.querySelectorAll("#categoryList button");
+    categoryButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Update active state
+        categoryButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        // Filter services
+        filterServices(button.dataset.category);
+      });
+    });
+  } catch (error) {
+    console.error("Error fetching services:", error);
+    alert("Failed to load services. Please try again later.");
+  }
+};
+getAndRenderCategories();
+
+const getServices = async () => {
+  const response = await fetch("http://localhost:5000/services");
+  const servicesData = await response.json();
+  const servicesTable = document.getElementById("servicesTable");
+  servicesTable.innerHTML = ""; // Clear existing services
+  servicesData.forEach((service) => {
+    servicesTable.appendChild(createServiceCard(service));
+  });
+};
+getServices();
 // Function to create service card
 function createServiceCard(service) {
-  const card = document.createElement("div");
-  card.className = "service-card";
-  card.dataset.category = service.category;
-  card.innerHTML = `
-          <img src="${service.photo_url}" alt="${
-    service.service_name
-  }" class="service-image">
-          <div class="service-info">
-              <h3 class="service-title">${service.service_name}</h3>
-              <p class="service-price">$${service.price.toFixed(2)} per hour</p>
-              <p class="service-category">${
-                service.category.charAt(0).toUpperCase() +
-                service.category.slice(1)
-              }</p>
-              <p class="service-location">${service.location}</p>
-          </div>
+  console.log(service);
+  const tr = document.createElement("tr");
+  tr.dataset.category = service.service_type;
+  tr.innerHTML = `
+           <td>${service.service_id}</td>
+           <td>${service.service_provider_name}</td>
+           <td>${service.contact}</td>
+        <td>${service.service_type}</td>
+        <td>${service.average_rating || "N/A"}</td>
+        <td>${service.review_count || 0}</td>
+        <td>${service.latest_review_comment || "No reviews yet"}</td>
+        <td>${service.latest_review_rating || "N/A"}</td>
+        
       `;
-  return card;
+  return tr;
 }
 
 // Function to filter services
 function filterServices(category) {
-  const services = document.querySelectorAll(".service-card");
-  services.forEach((service) => {
-    if (category === "all" || service.dataset.category === category) {
-      service.style.display = "block";
+  const rows = document.querySelectorAll("#servicesTable tr");
+  rows.forEach((row) => {
+    const rowCategory = row.dataset.category;
+    console.log(row);
+    console.log(rowCategory);
+    console.log(category);
+    if (category === "all" || rowCategory === category) {
+      row.style.display = "";
     } else {
-      service.style.display = "none";
+      row.style.display = "none";
     }
   });
 }
 
 // Add demo services
-const servicesGrid = document.getElementById("servicesGrid");
-demoServices.forEach((service) => {
-  servicesGrid.appendChild(createServiceCard(service));
-});
-
-// Category filter functionality
-const categoryButtons = document.querySelectorAll(".category-list button");
-categoryButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    // Update active state
-    categoryButtons.forEach((btn) => btn.classList.remove("active"));
-    button.classList.add("active");
-
-    // Filter services
-    filterServices(button.dataset.category);
-  });
-});
 
 // Form submission
 document.getElementById("serviceForm").addEventListener("submit", function (e) {

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Community Services</title>
+    <link rel="stylesheet" href="css/services.css" />
   </head>
   <body>
     <header class="gradient-bg">
@@ -13,11 +14,11 @@
       </div>
       <nav>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#marketplace">Marketplace</a></li>
-          <li><a href="#lost-found">Lost-Found</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#emergency">Emergency</a></li>
+          <li><a href="/frontend/home.html">Home</a></li>
+          <li><a href="/frontend/marketplace.html">Marketplace</a></li>
+          <li><a href="/frontend/lost-found.html">Lost-Found</a></li>
+          <li><a href="/frontend/events.html">Events</a></li>
+          <li><a href="/frontend/emergency.html">Emergency</a></li>
         </ul>
       </nav>
     </header>
@@ -25,18 +26,7 @@
     <main>
       <aside class="categories">
         <h2>Service Categories</h2>
-        <ul class="category-list" id="categoryList">
-          <li>
-            <button class="active" data-category="all">All Services</button>
-          </li>
-          <li><button data-category="plumbing">Plumbing</button></li>
-          <li><button data-category="electrical">Electrical</button></li>
-          <li><button data-category="cleaning">Cleaning</button></li>
-          <li><button data-category="gardening">Gardening</button></li>
-          <li><button data-category="tutoring">Tutoring</button></li>
-          <li><button data-category="carpentry">Carpentry</button></li>
-          <li><button data-category="other">Other</button></li>
-        </ul>
+        <ul class="category-list" id="categoryList"></ul>
       </aside>
 
       <div class="content">
@@ -45,9 +35,23 @@
           <button class="add-service-btn" id="openModalBtn">Add Service</button>
         </div>
 
-        <div class="services-grid" id="servicesGrid">
-          <!-- Services will be dynamically added here -->
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Service Type</th>
+              <th>Average Rating</th>
+              <th>Review Count</th>
+              <th>Latest Review Comment</th>
+              <th>Latest Review Rating</th>
+            </tr>
+          </thead>
+          <tbody id="servicesTable">
+            <!-- Rows will be dynamically injected here -->
+          </tbody>
+        </table>
       </div>
     </main>
 
