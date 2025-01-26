@@ -1,77 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Community Events</title>
-    <link rel="stylesheet" href="css/events.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="css/events.css" />
+  </head>
+  <body>
     <header>
-        <h1>🎉 Events</h1>
-        <nav>
-            <ul>
-                <li><a href="/frontend/home.html">Home</a></li>
-                <li><a href="/frontend/marketplace.html">Marketplace</a></li>
-                <li><a href="/frontend/lost-found.html">Lost-Found</a></li>
-                <li><a href="/frontend/emergency.html">Emergency</a></li>
-            </ul>
-        </nav> 
+      <h1>🎉 Events</h1>
+      <nav>
+        <ul>
+          <li><a href="/frontend/home.html">Home</a></li>
+          <li><a href="/frontend/marketplace.html">Marketplace</a></li>
+          <li><a href="/frontend/lost-found.html">Lost-Found</a></li>
+          <li><a href="/frontend/emergency.html">Emergency</a></li>
+          <li><a href="/frontend/services.html">Services</a></li>
+        </ul>
+      </nav>
     </header>
 
     <div class="container">
-        <h1>Community Events</h1>
+      <h1>Community Events</h1>
 
-        <!-- Form to Add Event -->
-        <div class="form-container">
-            <h2>Add New Event</h2>
-            <div class="form-group">
-                <label for="event_name">Event Name:</label>
-                <input type="text" id="event_name" placeholder="Enter event name">
-            </div>
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea id="description" rows="4" placeholder="Enter description"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="date">Date:</label>
-                <input type="date" id="date">
-            </div>
-            <div class="form-group">
-                <label for="time">Time:</label>
-                <input type="time" id="time">
-            </div>
-            <div class="form-group">
-                <label for="street_or_house">Street or House:</label>
-                <input type="text" id="street_or_house" placeholder="Enter street or house">
-            </div>
-            <div class="form-group">
-                <label for="town">Town:</label>
-                <input type="text" id="town" placeholder="Enter town">
-            </div>
-            <div class="form-group">
-                <label for="district">District:</label>
-                <input type="text" id="district" placeholder="Enter district">
-            </div>
-            <div class="form-group">
-                <label for="division">Division:</label>
-                <input type="text" id="division" placeholder="Enter division">
-            </div>
-            <div class="form-group">
-                <label for="contact_details">Contact Details:</label>
-                <input type="text" id="contact_details" placeholder="Enter contact details">
-            </div>
-            <button class="btn" id="addEventBtn">Add Event</button>
+      <!-- Form to Add Event -->
+      <div class="form-container">
+        <h2>Add New Event</h2>
+        <div class="form-group">
+          <label for="event_name">Event Name:</label>
+          <input type="text" id="event_name" placeholder="Enter event name" />
         </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea
+            id="description"
+            rows="4"
+            placeholder="Enter description"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="date" id="date" />
+        </div>
+        <div class="form-group">
+          <label for="time">Time:</label>
+          <input type="time" id="time" />
+        </div>
+        <div class="form-group">
+          <label for="street_or_house">Street or House:</label>
+          <input
+            type="text"
+            id="street_or_house"
+            placeholder="Enter street or house"
+          />
+        </div>
+        <div class="form-group">
+          <label for="town">Town:</label>
+          <input type="text" id="town" placeholder="Enter town" />
+        </div>
+        <div class="form-group">
+          <label for="district">District:</label>
+          <input type="text" id="district" placeholder="Enter district" />
+        </div>
+        <div class="form-group">
+          <label for="division">Division:</label>
+          <input type="text" id="division" placeholder="Enter division" />
+        </div>
+        <div class="form-group">
+          <label for="contact_details">Contact Details:</label>
+          <input
+            type="text"
+            id="contact_details"
+            placeholder="Enter contact details"
+          />
+        </div>
+        <button class="btn" id="addEventBtn">Add Event</button>
+      </div>
 
-        <!-- Display Events -->
-        <div class="events" id="events">
-            <h2>All Community Events</h2>
-            <!-- Event cards will be dynamically added here -->
-        </div>
+      <!-- Display Events -->
+      <div class="events" id="events">
+        <h2>All Community Events</h2>
+        <!-- Event cards will be dynamically added here -->
+      </div>
     </div>
 
     <script src="/frontend/scripts/events.js"></script>
-</body>
+  </body>
 </html>

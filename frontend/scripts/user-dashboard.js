@@ -63,7 +63,13 @@ document
     )}`;
   });
 
-const quickAccessLinks = ["lost-found", "marketplace", "emergency", "events"];
+const quickAccessLinks = [
+  "lost-found",
+  "marketplace",
+  "emergency",
+  "events",
+  "services",
+];
 quickAccessLinks.forEach((linkId) => {
   document.getElementById(linkId).addEventListener("click", function (e) {
     e.preventDefault();
