@@ -1,55 +1,9 @@
-// Modal functionality
-const modal = document.getElementById("sellModal");
-const openModalBtn = document.getElementById("openModalBtn");
-const closeModal = document.getElementById("closeModal");
-
-function openModal() {
-  modal.classList.add("active");
-  document.body.style.overflow = "hidden";
-}
-
-function closeModalFn() {
-  modal.classList.remove("active");
-  document.body.style.overflow = "auto";
-}
-
-openModalBtn.addEventListener("click", openModal);
-closeModal.addEventListener("click", closeModalFn);
-
-// Close modal when clicking outside
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    closeModalFn();
-  }
-});
-
 // Close modal with Escape key
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && modal.classList.contains("active")) {
     closeModalFn();
   }
 });
-
-const getCategories = async () => {
-  const response = await fetch(`http://localhost:5000/buy-sell/categories`);
-  if (response.ok) {
-    const categories = await response.json();
-    console.log(categories);
-    categories.forEach((category) => {
-      const li = document.createElement("li");
-      li.innerHTML = ` <button class="active" data-category="all">
-              ${category.category} ${category.item_count}
-            </button>`;
-
-      document.getElementById("categoryList").appendChild(li);
-    });
-  } else {
-    console.error("Failed to fetch data");
-    // localStorage.removeItem("token");
-    // window.location.href = "http:127.0.0.1:5500/frontend/index.html";
-  }
-};
-getCategories();
 
 // Function to create item card
 function createItemCard(item) {
@@ -73,6 +27,7 @@ function createItemCard(item) {
 
 // Function to filter items
 function filterItems(category) {
+  console.log(category);
   const items = document.querySelectorAll(".item-card");
   items.forEach((item) => {
     if (category === "all" || item.dataset.category === category) {
@@ -82,6 +37,43 @@ function filterItems(category) {
     }
   });
 }
+
+const getCategories = async () => {
+  const response = await fetch(`http://localhost:5000/buy-sell/categories`);
+  if (response.ok) {
+    const categories = await response.json();
+    console.log(categories);
+
+    const allButton = document.createElement("button");
+    allButton.innerText = "All Products";
+    allButton.classList.add("active");
+    allButton.dataset.category = "all";
+    categoryList.appendChild(allButton);
+
+    categories.forEach((category) => {
+      const li = document.createElement("li");
+      li.innerHTML = ` <button class="category-btn" data-category="${category.category}">
+              ${category.category} ${category.item_count}
+            </button>`;
+
+      document.getElementById("categoryList").appendChild(li);
+    });
+    const categoryButtons = document.querySelectorAll(".category-btn");
+    categoryButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Update active state
+        categoryButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        // Filter items by category
+        filterItems(button.dataset.category);
+      });
+    });
+  } else {
+    console.error("Failed to fetch data");
+  }
+};
+getCategories();
 
 const getBuyAndSellItems = async () => {
   const response = await fetch(`http://localhost:5000/buy-sell/`);
@@ -93,8 +85,6 @@ const getBuyAndSellItems = async () => {
     });
   } else {
     console.error("Failed to fetch data");
-    // localStorage.removeItem("token");
-    // window.location.href = "http:127.0.0.1:5500/frontend/index.html";
   }
 };
 
@@ -103,19 +93,6 @@ console.log(localStorage.getItem("username"));
 getBuyAndSellItems();
 
 // Add demo items
-
-// Category filter functionality
-const categoryButtons = document.querySelectorAll(".category-list button");
-categoryButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    // Update active state
-    categoryButtons.forEach((btn) => btn.classList.remove("active"));
-    button.classList.add("active");
-
-    // Filter items
-    filterItems(button.dataset.category);
-  });
-});
 
 // Form submission
 document.getElementById("sellForm").addEventListener("submit", async (e) => {
