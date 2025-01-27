@@ -5,7 +5,6 @@ const db = require("../database");
 const buyAndSell = express.Router();
 
 buyAndSell.get("/", (req, res) => {
-  //     //   const { username } = req.user;
 
   const query = `SELECT * FROM buy_sell_item`;
   db.query(query, (err, results) => {
@@ -13,13 +12,13 @@ buyAndSell.get("/", (req, res) => {
       res.status(500).send("Error fetching data from database");
       return;
     }
-    console.log(results);
+    // console.log(results);
     res.status(200).json(results);
   });
 });
 
 buyAndSell.get("/categories", (req, res) => {
-  //     //   const { username } = req.user;
+
 
   const query = `SELECT category, COUNT(*) AS item_count
 FROM buy_sell_item
@@ -30,7 +29,7 @@ ORDER BY item_count DESC;`;
       res.status(500).send("Error fetching data from database");
       return;
     }
-    console.log(results);
+    // console.log(results);
     res.status(200).json(results);
   });
 });

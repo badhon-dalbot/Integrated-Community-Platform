@@ -6,11 +6,7 @@ const db = require("../database");
 const emergencyAlert = express.Router();
 
 emergencyAlert.get("/alerts", (req, res) => {
-  // const { username } = req.user;
-  // console.log(userId);
-  // console.log(username);
-  // if (!username) return res.status(400).json({ error: "user id required" });
-
+  
   const query = `SELECT * FROM emergency_alert`;
   db.query(query, (err, results) => {
     if (err || results.length === 0) {

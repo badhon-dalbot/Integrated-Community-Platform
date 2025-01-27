@@ -25,7 +25,7 @@ const getUserProfile = async () => {
       document.getElementById("division").value = userData.user.division;
     } else {
       // Redirect to login page if the profile data cannot be fetched
-      window.location.href = "/index.html";
+      window.location.href = "http://localhost:5000";
     }
   } catch (error) {
     console.error("Error:", error);
@@ -83,10 +83,10 @@ document
 // Logout functionality
 logoutBtn.addEventListener("click", async () => {
   try {
-    const response = await fetch("/api/logout", { method: "POST" });
-    if (response.ok) {
-      window.location.href = "/index.html";
-    }
+   localStorage.removeItem("username");
+   sessionStorage.removeItem("username");
+    window.location.href = "http://localhost:5000";
+  
   } catch (error) {
     console.error("Error:", error);
     alert("Logout failed. Please try again.");

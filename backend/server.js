@@ -152,10 +152,8 @@ app.post("/register", (req, res) => {
   });
 });
 
-//profile
-app.use("/user", userRoute);
 
-//lost and found
+app.use("/user", userRoute);
 
 app.use("/lost-and-found", lostAndFoundRoute);
 
@@ -163,21 +161,7 @@ app.use("/events", events);
 app.use("/buy-Sell", buyAndSell);
 app.use("/emergency-alert", emergencyAlert);
 app.use("/services", service);
-// Update user Profile
-// app.put("/user/:id", (req, res) => {
-//   const userId = req.params.id;
-//   const { full_name, email } = req.body;
-//   const query = "UPDATE users SET full_name = ?, email = ? WHERE id = ?";
-//   db.query(query, [name, email, userId], (err) => {
-//     if (err) {
-//       res.status(500).json({ error: "Failed to update user data" });
-//     } else {
-//       res.json({ message: "User updated successfully" });
-//     }
-//   });
-// });
 
-//middlewire
 
 app.get("/latest-updates", (req, res) => {
   const query = `SELECT 'Buy and Sell' AS source, item_id, item_name, description AS content, date_listed as created_at

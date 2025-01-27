@@ -3,7 +3,7 @@ const mysql = require("mysql");
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "", // If root user has no password, keep this empty
+  password: "", 
   database: "integrated_community_platform",
 });
 
