@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Services</title>
+    <link rel="stylesheet" href="css/services.css" />
+  </head>
+  <body>
+    <header class="gradient-bg">
+      <div class="header-content">
+        <span class="services-icon">🛠️</span>
+        <h1 class="site-title">Community Services</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/frontend/home.html">Home</a></li>
+          <li><a href="/frontend/marketplace.html">Marketplace</a></li>
+          <li><a href="/frontend/lost-found.html">Lost-Found</a></li>
+          <li><a href="/frontend/events.html">Events</a></li>
+          <li><a href="/frontend/emergency.html">Emergency</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <aside class="categories">
+        <h2>Service Categories</h2>
+        <ul class="category-list" id="categoryList"></ul>
+      </aside>
+
+      <div class="content">
+        <div class="content-header">
+          <h2>Available Services</h2>
+          <button class="add-service-btn" id="openModalBtn">Add Service</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Service Type</th>
+              <th>Average Rating</th>
+              <th>Review Count</th>
+              <th>Latest Review Comment</th>
+              <th>Latest Review Rating</th>
+            </tr>
+          </thead>
+          <tbody id="servicesTable">
+            <!-- Rows will be dynamically injected here -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- Modal -->
+    <div
+      class="modal"
+      id="serviceModal"
+      role="dialog"
+      aria-labelledby="modalTitle"
+      aria-modal="true"
+    >
+      <div class="modal-content">
+        <button class="close-modal" id="closeModal" aria-label="Close modal">
+          ×
+        </button>
+        <h2 id="modalTitle">Add Your Service</h2>
+        <form id="serviceForm">
+          <input type="hidden" id="userId" name="user_id" value="12345" />
+          <div class="form-group">
+            <label for="serviceName">Service Name</label>
+            <input type="text" id="serviceName" name="service_name" required />
+          </div>
+          <div class="form-group">
+            <label for="serviceDescription">Description</label>
+            <textarea
+              id="serviceDescription"
+              name="description"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="serviceCategory">Category</label>
+            <select id="serviceCategory" name="category" required>
+              <option value="">Select a category</option>
+              <option value="plumbing">Plumbing</option>
+              <option value="electrical">Electrical</option>
+              <option value="cleaning">Cleaning</option>
+              <option value="gardening">Gardening</option>
+              <option value="tutoring">Tutoring</option>
+              <option value="carpentry">Carpentry</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="servicePrice">Price ($ per hour)</label>
+            <input
+              type="number"
+              id="servicePrice"
+              name="price"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="servicePhotoUrl">Photo URL</label>
+            <input type="url" id="servicePhotoUrl" name="photo_url" required />
+          </div>
+          <div class="form-group">
+            <label for="serviceLocation">Location</label>
+            <input type="text" id="serviceLocation" name="location" required />
+          </div>
+          <button type="submit">Add Service</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="scripts/services.js"></script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 const express = require("express");
-const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken");
+// const cookieParser = require("cookie-parser");
+// const jwt = require("jsonwebtoken");
 const path = require("path"); // Add path module
 const cors = require("cors");
 const db = require("./database"); // Import the database connection
@@ -8,11 +8,12 @@ const userRoute = require("./routes/userRoutes");
 const app = express();
 const port = 5000;
 const secretKey = "2c3f35b8a3988bed11689e3fc1aabe08064abd0d43";
-app.use(cookieParser(secretKey));
+// app.use(cookieParser(secretKey))
 const lostAndFoundRoute = require("./routes/lostAndFoundRout");
 const events = require("./routes/eventsRouts");
 const buyAndSell = require("./routes/buyAndSellRouts");
 const emergencyAlert = require("./routes/emergencyAlertRouts");
+const service = require("./routes/servicesRoutes");
 
 // Middleware to parse incoming requests
 app.use(express.json()); // To parse JSON bodies
@@ -20,40 +21,36 @@ app.use(express.json()); // To parse JSON bodies
 app.use(
   cors({
     origin: "http://127.0.0.1:5500",
-    method: ["GET", "POST  "],
-    credentials: true,
+    Credentials: true,
   })
 );
-
-// {
-//   origin: "http:/127.0.0.1:5500",
-//   methods: ["GET", "POST", "DELETE", "OPTIONS", "PUT"],
-//   Credentials: true,
-// }
 
 app.use(express.urlencoded({ extended: true })); // To parse URL-encoded bodies
 
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, "../frontend"))); // This serves files from the frontend folder
 //middlware
-app.use((req, res, next) => {
-  console.log("request cookies: ", req.cookies);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("request cookies: ", req.cookies);
+//   next();
+// });
 // Routes
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html")); // Serve the index.html file
+  res.sendFile(path.join(__dirname, "frontend", "index.html")); // Serve the index.html file
 });
 
+// app.get("/profile.html", (req, res) => {
+//   const username = req.query.username;
+//   console.log(username);
+//   res.sendFile(path.join(__dirname, "frontend", "profile.html"));
+// });
+
+// app.get("/user-dashboard/:username", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../frontend", "user-dashboard.html"));
+// });
 // Login API route
 app.post("/login", (req, res) => {
-  // const token = req.cookies.loggedInUser;
-
-  // if (token) {
-  //   return res.json({ status: "Success" });
-  // }
-
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -72,28 +69,23 @@ app.post("/login", (req, res) => {
     }
 
     const user = results[0];
-    const token = jwt.sign(
-      { id: user.user_id, username: user.username },
-      "yourSecretKey",
-      { expiresIn: "1d" }
-    );
+    // const token = jwt.sign(
+    //   { id: user.user_id, username: user.username },
+    //   "yourSecretKey",
+    //   { expiresIn: "1d" }
+    // );
 
-    console.log("generated token: ", token);
+    // res.cookie("token", token, {
+    //   expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    //   httpOnly: true,
+    //   signed: true,
 
-    res.cookie("token", token, {
-      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-      httpOnly: true, // Cookie can only be accessed by the server
-      signed: true, // Ensure it's a signed cookie
-      // res.json({
-      //   message: "login successful",
-      //   username: user.username,
-    });
-    //token
+    // });
 
     res.json({
       message: "Login successful",
       user: user,
-      token: token,
+      // token: token,
     });
   });
 });
@@ -170,6 +162,7 @@ app.use("/lost-and-found", lostAndFoundRoute);
 app.use("/events", events);
 app.use("/buy-Sell", buyAndSell);
 app.use("/emergency-alert", emergencyAlert);
+app.use("/services", service);
 // Update user Profile
 // app.put("/user/:id", (req, res) => {
 //   const userId = req.params.id;
@@ -185,6 +178,34 @@ app.use("/emergency-alert", emergencyAlert);
 // });
 
 //middlewire
+
+app.get("/latest-updates", (req, res) => {
+  const query = `SELECT 'Buy and Sell' AS source, item_id, item_name, description AS content, date_listed as created_at
+FROM buy_sell_item
+UNION ALL
+SELECT 'Emergency Alert' AS source, alert_id, title, description AS content, time_issued as created_at
+FROM emergency_alert
+UNION ALL
+SELECT 'Events' AS source, event_id, event_name AS title, description AS content, time as created_at
+FROM event
+UNION ALL
+SELECT 'Found Items' AS source, found_item_id, item_name AS title, description AS content, date_found as created_at
+FROM found_item
+UNION ALL
+SELECT 'Lost Item' AS source, lost_item_id, item_name AS title, description AS content, date_lost as created_at
+FROM lost_item
+ORDER BY created_at DESC
+LIMIT 10;
+`;
+  db.query(query, (err, results) => {
+    if (err) {
+      res.status(500).send("Error fetching data from database");
+      return;
+    }
+    console.log(results);
+    res.status(200).json(results);
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

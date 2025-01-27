@@ -27,7 +27,7 @@ header {
   gap: 1rem;
 }
 
-.cart-icon {
+.services-icon {
   font-size: 1.5rem;
   margin-right: 0.5rem;
 }
@@ -195,7 +195,7 @@ main {
   resize: vertical;
 }
 
-.add-item-btn {
+.add-service-btn {
   background-color: #2196f3;
   color: white;
   padding: 0.75rem 1.5rem;
@@ -206,7 +206,7 @@ main {
   transition: background-color 0.3s ease;
 }
 
-.add-item-btn:hover {
+.add-service-btn:hover {
   background-color: #1976d2;
 }
 
@@ -226,13 +226,13 @@ button[type="submit"]:hover {
   background-color: #1976d2;
 }
 
-.items-grid {
+.services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
-.item-card {
+.service-card {
   background: white;
   border-radius: 8px;
   overflow: hidden;
@@ -240,35 +240,40 @@ button[type="submit"]:hover {
   transition: transform 0.3s ease;
 }
 
-.item-card:hover {
+.service-card:hover {
   transform: translateY(-5px);
 }
 
-.item-image {
+.service-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
 }
 
-.item-info {
+.service-info {
   padding: 1rem;
 }
 
-.item-title {
+.service-title {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: #333;
 }
 
-.item-price {
+.service-price {
   color: #2196f3;
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
-.item-category {
+.service-category {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.service-location {
   color: #666;
   font-size: 0.9rem;
 }
@@ -278,6 +283,28 @@ button[type="submit"]:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+th,
+td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+}
+th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+tr:hover {
+  background-color: #f1f1f1;
 }
 
 @media (max-width: 768px) {

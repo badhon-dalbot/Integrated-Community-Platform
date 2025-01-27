@@ -1,64 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Community Marketplace</title>
-    <link rel="stylesheet" href="css/marketplace.css">
-</head>
-<body>
-    <header>
-        <h1>🛒 Marketplace</h1>
-        <nav>
-            <ul>
-                <li><a href="/frontend/home.html">Home</a></li>
-                <li><a href="/frontend/lost-found.html">Lost-Found</a></li>
-                <li><a href="/frontend/events.html">Events</a></li>
-                <li><a href="/frontend/emergency.html">Emergency</a></li>
-            </ul>
-        </nav>
+    <link rel="stylesheet" href="css/marketplace.css" />
+  </head>
+  <body>
+    <header class="gradient-bg">
+      <div class="header-content">
+        <span class="cart-icon">🛒</span>
+        <h1 class="site-title">Marketplace</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="lost-found.html">Lost-Found</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="emergency.html">Emergency</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main>
-        <section id="sell-item">
-            <h2>Sell Your Item</h2>
-            <form id="item-form">
-                <input type="text" id="item-title" placeholder="Item Title" required>
-                <textarea id="item-description" placeholder="Item Description" required></textarea>
-                <input type="number" id="item-price" placeholder="Item Price" required>
-                <input type="text" id="item-photo-url" placeholder="Photo URL" required>
-                
-                <label for="item-category">Category:</label>
-                <select id="item-category" required>
-                    <option value="">Select Category</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="furniture">Furniture</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="toys">Toys</option>
-                </select>
+      <aside class="categories">
+        <h2>Categories</h2>
+        <ul class="category-list" id="categoryList"></ul>
+      </aside>
 
-                <label for="item-location">Location:</label>
-                <select id="item-location" required>
-                    <option value="">Select Location</option>
-                    <option value="city-center">City Center</option>
-                    <option value="suburbs">Suburbs</option>
-                    <option value="rural">Rural Area</option>
-                </select>
+      <div class="content">
+        <div class="content-header">
+          <h2>Available Items</h2>
+          <button class="add-item-btn" id="openModalBtn">Add Item</button>
+        </div>
 
-                <button type="submit">Add Item</button>
-            </form>
-        </section>
-
-        <section id="item-list">
-            <h2>Available Items</h2>
-            <div id="items-container"></div>
-        </section>
+        <div class="items-grid" id="itemsGrid">
+          <!-- Items will be dynamically added here -->
+        </div>
+      </div>
     </main>
 
-    <footer>
-        <p>&copy; 2023 Community Marketplace</p>
-    </footer>
+    <!-- Modal -->
+    <div
+      class="modal"
+      id="sellModal"
+      role="dialog"
+      aria-labelledby="modalTitle"
+      aria-modal="true"
+    >
+      <div class="modal-content">
+        <button class="close-modal" id="closeModal" aria-label="Close modal">
+          ×
+        </button>
+        <h2 id="modalTitle">Sell Your Item</h2>
+        <form id="sellForm">
+          <input type="hidden" id="userId" name="user_id" value="12345" />
+          <div class="form-group">
+            <label for="itemName">Item Name</label>
+            <input type="text" id="itemName" name="item_name" required />
+          </div>
+          <div class="form-group">
+            <label for="itemDescription">Description</label>
+            <textarea
+              id="itemDescription"
+              name="description"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="itemCategory">Category</label>
+            <select id="itemCategory" name="category" required>
+              <option value="">Select a category</option>
+              <option value="electronics">Electronics</option>
+              <option value="furniture">Furniture</option>
+              <option value="clothing">Clothing</option>
+              <option value="books">Books</option>
+              <option value="sports">Sports & Outdoors</option>
+              <option value="vehicles">Vehicles</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="itemPrice">Price ($)</label>
+            <input
+              type="number"
+              id="itemPrice"
+              name="price"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="itemPhotoUrl">Photo URL</label>
+            <input type="url" id="itemPhotoUrl" name="photo_url" required />
+          </div>
+          <div class="form-group">
+            <label for="itemLocation">Location</label>
+            <input type="text" id="itemLocation" name="location" required />
+          </div>
+          <div class="form-group">
+            <label for="itemContact">Contact</label>
+            <input type="number" id="itemContact" name="contact" required />
+          </div>
+          <button type="submit">Add Item</button>
+        </form>
+      </div>
+    </div>
 
     <script src="scripts/marketplace.js"></script>
-</body>
+    <script src="scripts/modal.js"></script>
+  </body>
 </html>

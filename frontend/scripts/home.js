@@ -5,11 +5,9 @@ function createUpdateCard(item) {
   return `
         <div class="update-card">
             <div class="update-header">
-                <img src="${item.avatar}" alt="${
-    item.author
-  }" class="update-avatar">
-                <span class="update-author">${item.name}</span>
-                <span class="update-timestamp">${item.date_lost}</span>
+                <span class="update-action-icon">🏷️</span>
+                <span class="update-author">${item.source}</span>
+                <span class="update-timestamp">${item.created_at}</span>
             </div>
             <div class="update-content">
                 <p>${item.item_name}</p>
@@ -39,16 +37,30 @@ function createUpdateCard(item) {
 
 // Populate the updates feed
 
-const getLostItems = async () => {
+// const getLostItems = async () => {
+//   // const response = await fetch('/lost-and-found');
+//   const response = await fetch(
+//     `http://localhost:5000/lost-and-found/lost-item`,
+//     {
+//       method: "GET",
+//       // headers: { Authorization: `Bearer ${token}` },
+//       headers: { "Content-Type": "application/json" },
+//     }
+//   );
+//   // const items = await response.json();\
+//   if (response.ok) {
+//     const items = await response.json();
+//     return items;
+//   }
+// };
+
+const getLatestUpdates = async () => {
   // const response = await fetch('/lost-and-found');
-  const response = await fetch(
-    `http://localhost:5000/lost-and-found/lost-item`,
-    {
-      method: "GET",
-      // headers: { Authorization: `Bearer ${token}` },
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  const response = await fetch(`http://localhost:5000/latest-updates`, {
+    method: "GET",
+    // headers: { Authorization: `Bearer ${token}` },
+    headers: { "Content-Type": "application/json" },
+  });
   // const items = await response.json();\
   if (response.ok) {
     const items = await response.json();
@@ -56,42 +68,25 @@ const getLostItems = async () => {
   }
 };
 
-const getFoundItems = async () => {
-  // const response = await fetch('/lost-and-found');
-  const response = await fetch(
-    `http://localhost:5000/lost-and-found/found-item`,
-    {
-      method: "GET",
-      // headers: { Authorization: `Bearer ${token}` },
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-  // const items = await response.json();\
-  if (response.ok) {
-    const items = await response.json();
-    return items;
-  }
-};
-
-const displayLostItems = async () => {
+const displayLatestUpdates = async () => {
   const updatesFeed = document.getElementById("updatesFeed");
-  const items = await getLostItems();
+  const items = await getLatestUpdates();
   console.log(items);
   items.forEach((item) => {
     updatesFeed.innerHTML += createUpdateCard(item);
   });
 };
-displayLostItems();
+displayLatestUpdates();
 
-const displayFoundItems = async () => {
-  const updatesFeed = document.getElementById("updatesFeed");
-  const items = await getFoundItems();
-  console.log(items);
-  items.forEach((item) => {
-    updatesFeed.innerHTML += createUpdateCard(item);
-  });
-};
-displayFoundItems();
+// const displayFoundItems = async () => {
+//   const updatesFeed = document.getElementById("updatesFeed");
+//   const items = await getFoundItems();
+//   console.log(items);
+//   items.forEach((item) => {
+//     updatesFeed.innerHTML += createUpdateCard(item);
+//   });
+// };
+// displayFoundItems();
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {

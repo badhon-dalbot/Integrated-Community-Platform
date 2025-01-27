@@ -33,11 +33,14 @@ loginForm.addEventListener("submit", async (e) => {
     if (response.ok) {
       const data = await response.json();
       console.log(data);
-      localStorage.setItem("username", data.user.username);
+
       // console.log(localStorage.getItem("token"));
       // alert("Login successful!");
-      window.location.href =
-        "http://127.0.0.1:5500/frontend/user-dashboard.html"; // Redirect to profile page after successful login
+      localStorage.setItem("username", data.user.username);
+      window.location.href = `http://127.0.0.1:5500/frontend/user-dashboard.html?username=${encodeURIComponent(
+        username
+      )}`;
+      // Redirect to profile page after successful login
     } else {
       // Display login failed message (this will trigger when the response is not OK)
       alert("Login failed. Please check your credentials.");
